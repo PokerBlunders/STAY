@@ -1,0 +1,5 @@
+sceneSetups:
+- path: Assets/Jeff/Scenes/LeveL_1.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0
