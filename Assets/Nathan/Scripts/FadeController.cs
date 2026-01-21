@@ -44,15 +44,12 @@ public class FadeController : MonoBehaviour
     IEnumerator FadeIn()
     {
         yield return new WaitForSeconds(fadeInDelay);
-
         canvasGroup.alpha = 1f;
-
         while (canvasGroup.alpha > 0f)
         {
             canvasGroup.alpha -= Time.deltaTime / fadeDuration;
             yield return null;
         }
-
         canvasGroup.alpha = 0f;
     }
 
@@ -63,9 +60,7 @@ public class FadeController : MonoBehaviour
             canvasGroup.alpha += Time.deltaTime / fadeDuration;
             yield return null;
         }
-
         canvasGroup.alpha = 1f;
-
         SceneManager.LoadScene(sceneName);
     }
 }
