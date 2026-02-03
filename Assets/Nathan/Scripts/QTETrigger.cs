@@ -16,7 +16,6 @@ public class QTETrigger : MonoBehaviour
     private KeyCode requiredKey;
     private bool qteActive = false;
     private float timer;
-    private bool playerInTrigger = false;
 
 
     void Update()
@@ -48,7 +47,6 @@ public class QTETrigger : MonoBehaviour
     {
         if (other.CompareTag("Player") && !qteActive)
         {
-            playerInTrigger = true;
             StartQTE();
         }
     }
@@ -62,8 +60,6 @@ public class QTETrigger : MonoBehaviour
         qteUI.SetActive(true);
         qteActive = true;
         timer = qteDuration;
-
-        Debug.Log("QTE Started! Press: " + requiredKey);
     }
 
     void SetButtonImage(KeyCode key)
@@ -89,8 +85,6 @@ public class QTETrigger : MonoBehaviour
         qteActive = false;
         qteUI.SetActive(false);
 
-        Debug.Log("QTE Success! Player may proceed.");
-
         GetComponent<Collider>().enabled = false;
     }
 
@@ -99,7 +93,6 @@ public class QTETrigger : MonoBehaviour
         qteActive = false;
         qteUI.SetActive(false);
 
-        Debug.Log("QTE Failed! Restarting level.");
         RestartLevel();
     }
 

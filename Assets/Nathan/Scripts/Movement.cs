@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
 
     public float groundStickForce = -5f;
     public float coyoteTime = 0.15f;
+    public float jumpCooldown = 0.2f;
 
     private CharacterController controller;
     public Animator animator;
@@ -16,6 +17,7 @@ public class Movement : MonoBehaviour
     private float coyoteTimeCounter;
     private float jumpBlend;
     private bool isSitting;
+    private float jumpCooldownTimer;
 
     void Start()
     {
@@ -24,8 +26,15 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveX = 0f;
+        if (Input.GetAxisRaw("Horizontal") > 0)
+        {
+            moveX = 1f;
+        }
         bool isGrounded = controller.isGrounded;
+
+        if (jumpCooldownTimer > 0f)
+            jumpCooldownTimer -= Time.deltaTime;
 
         if (isGrounded)
         {
@@ -39,10 +48,11 @@ public class Movement : MonoBehaviour
             coyoteTimeCounter -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && coyoteTimeCounter > 0f)
+        if (Input.GetKeyDown(KeyCode.Space) && coyoteTimeCounter > 0f && jumpCooldownTimer <= 0f)
         {
             velocity.y = jumpForce;
             coyoteTimeCounter = 0f;
+            jumpCooldownTimer = jumpCooldown;
             isSitting = false;
         }
 
