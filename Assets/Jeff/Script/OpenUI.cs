@@ -13,6 +13,7 @@ public class OpenUI : MonoBehaviour
     void Start()
     {
         menu.SetActive(false);
+        setting.SetActive(false);
     }
 
     // Update is called once per frame
@@ -37,5 +38,18 @@ public class OpenUI : MonoBehaviour
             Time.timeScale = 1f;
             ResumAll.Invoke();
         }
+    }
+    public void OpenSetting()
+    {
+        menu.SetActive(false);
+        setting.SetActive(true);
+    }
+    public void CloseSetting()
+    {
+
+         setting.SetActive(false);
+         menu.SetActive(true);
+
+
     }
 }
