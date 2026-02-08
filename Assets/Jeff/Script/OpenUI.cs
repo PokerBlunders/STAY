@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class OpenUI : MonoBehaviour
 {
@@ -51,5 +52,10 @@ public class OpenUI : MonoBehaviour
          menu.SetActive(true);
 
 
+    }
+    public void SceneChangeGame(string sceneToGame)
+    {
+        Time.timeScale = 1f; 
+        SceneManager.LoadScene(sceneToGame);
     }
 }
