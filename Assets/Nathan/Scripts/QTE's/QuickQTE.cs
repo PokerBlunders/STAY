@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class QTETrigger : MonoBehaviour
+public class QuickQTE : MonoBehaviour
 {
 
     public GameObject qteUI;
