@@ -5,21 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Nathan/Scenes/MovementTEST.unity
-    guid: 33a276724d1e7eb4f8f4d8d86a14e3f2
-  - enabled: 0
-    path: Assets/Nathan/Scenes/Test 1.unity
-    guid: 29cdeb282c9d26a448432cd56c7b66b9
+    path: Assets/Nathan/Scenes/StartMain.unity
+    guid: dd7a7a405fdbfa345a017762e33fcde5
   - enabled: 1
-    path: Assets/Jeff/Scenes/Start.unity
-    guid: deaee4939c9c7dd4091d5a7944e41d74
-  - enabled: 1
-    path: Assets/Jeff/Scenes/TestForLevel.unity
-    guid: fa99e09b52ee5db44921c3dd1f7b5aa0
+    path: Assets/Nathan/Scenes/DogTesting.unity
+    guid: 0180f085099ee82439c950a299624fd4
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
