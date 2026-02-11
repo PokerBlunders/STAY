@@ -43,7 +43,6 @@ public class LeftRightQTE : MonoBehaviour
         // Show the correct image
         UpdateImage();
 
-        Debug.Log($"QTE Start: First click is {(nextIsLeft ? "LEFT" : "RIGHT")}");
     }
 
     void Update()
@@ -75,7 +74,6 @@ public class LeftRightQTE : MonoBehaviour
         // Update which image is shown
         UpdateImage();
 
-        Debug.Log($"Correct! Clicks: {clicks}/{totalClicks}");
 
         // Check if finished
         if (clicks >= totalClicks)
@@ -106,14 +104,11 @@ public class LeftRightQTE : MonoBehaviour
         // Disable trigger so it doesn't activate again
         GetComponent<Collider>().enabled = false;
         QTEPanel.SetActive(false);
-
-        Debug.Log("QTE Complete!");
     }
 
     void Fail()
     {
         QTEPanel.SetActive(false);
-        Debug.Log("Wrong click! Restarting...");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

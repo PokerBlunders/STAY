@@ -41,7 +41,6 @@ public class CrouchQTE : MonoBehaviour
         if (staminaSlider != null)
             staminaSlider.value = 1f;
 
-        Debug.Log("Crouch QTE: Spam click to keep stamina up!");
     }
 
     void Update()
@@ -91,15 +90,11 @@ public class CrouchQTE : MonoBehaviour
             staminaBarUI.SetActive(false);
 
         GetComponent<Collider>().enabled = false;
-
-        Debug.Log("Crouch QTE Passed!");
     }
 
     void QTEFail()
     {
         isActive = false;
-
-        Debug.Log("Crouch QTE Failed! Not enough clicks!");
 
         if (staminaBarUI != null)
             staminaBarUI.SetActive(false);

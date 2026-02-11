@@ -65,11 +65,7 @@ public class Movement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
 
-        Vector3 move = new Vector3(
-            moveX * moveSpeed,
-            velocity.y,
-            0f
-        );
+        Vector3 move = new Vector3(moveX * moveSpeed, velocity.y, 0f);
 
         controller.Move(move * Time.deltaTime);
 
