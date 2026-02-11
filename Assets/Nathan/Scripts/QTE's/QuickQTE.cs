@@ -93,6 +93,8 @@ public class QuickQTE : MonoBehaviour
         qteActive = false;
         qteUI.SetActive(false);
 
+        Debug.Log("QuickQTE: Fail");
+
         RestartLevel();
     }
 

@@ -13,8 +13,6 @@ public class FishingQTE : MonoBehaviour
 
     public float targetSpeed = 1f;
     public float catchSpeed = 2f;
-    public float targetWidth = 0.3f;
-    public float catchWidth = 0.2f;
 
     public float successTimeRequired = 3f;
     public float progressDecayRate = 0.5f;
@@ -88,11 +86,10 @@ public class FishingQTE : MonoBehaviour
         if (newY >= targetAreaMaxY || newY <= targetAreaMinY)
         {
             targetDirection *= -1;
-            targetSpeed = Random.Range(0.8f, 1.5f);
 
             if (Random.value > 0.7f)
             {
-                targetDirection = Random.Range(0, 2) * 2 - 1; // -1 or 1
+                targetDirection = Random.Range(0, 2) * 2 - 1;
             }
         }
 
