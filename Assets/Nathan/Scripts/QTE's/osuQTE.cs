@@ -6,7 +6,7 @@ using System.Collections;
 public class OSUQTE : MonoBehaviour
 {
     public GameObject circlePrefab;
-    public RectTransform canvasRoot;
+    public RectTransform canvas;
 
     public int circlesToSpawn = 4;
     public float spawnInterval = 1f;
@@ -59,7 +59,7 @@ public class OSUQTE : MonoBehaviour
             Random.Range(-200, 200)
         );
 
-        GameObject circle = Instantiate(circlePrefab, canvasRoot);
+        GameObject circle = Instantiate(circlePrefab, canvas);
         circle.GetComponent<RectTransform>().anchoredPosition = randomPos;
 
         circle.GetComponent<Button>().onClick.AddListener(() =>

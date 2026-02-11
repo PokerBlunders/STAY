@@ -50,7 +50,6 @@ public class LeftRightQTE : MonoBehaviour
     {
         if (!active) return;
 
-        // Check for left click
         if (Input.GetMouseButtonDown(0))
         {
             if (nextIsLeft)
@@ -58,7 +57,7 @@ public class LeftRightQTE : MonoBehaviour
             else
                 Fail();
         }
-        // Check for right click  
+
         else if (Input.GetMouseButtonDown(1))
         {
             if (!nextIsLeft)
