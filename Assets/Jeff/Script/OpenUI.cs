@@ -13,8 +13,11 @@ public class OpenUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        menu.SetActive(false);
-        setting.SetActive(false);
+        if (menu != null)
+            menu.SetActive(false);
+
+        if (setting != null)
+            setting.SetActive(false);
     }
 
     // Update is called once per frame
