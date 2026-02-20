@@ -4,28 +4,7 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/Nathan/Scenes/StartMain.unity
-    guid: dd7a7a405fdbfa345a017762e33fcde5
-  - enabled: 0
-    path: Assets/Nathan/Scenes/DogTesting.unity
-    guid: 0180f085099ee82439c950a299624fd4
-  - enabled: 1
-    path: Assets/Nathan/Scenes/TEST/fishingQTE.unity
-    guid: 6c5f643f8c34a724aa8c8aa8ed578f80
-  - enabled: 1
-    path: Assets/Nathan/Scenes/TEST/leftrightQTE.unity
-    guid: a946814a448d3e94ca086facd4e1688d
-  - enabled: 1
-    path: Assets/Nathan/Scenes/TEST/osuQTE.unity
-    guid: fa4de673e2e05b148ba691f465610d03
-  - enabled: 1
-    path: Assets/Nathan/Scenes/TEST/quickQTE.unity
-    guid: 7e304948d0e7e5443b0c704ec90a2521
-  - enabled: 1
-    path: Assets/Nathan/Scenes/TEST/spamQTE.unity
-    guid: e5b245aa934fb6146be78bf7c3d0f37d
+  m_Scenes: []
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
