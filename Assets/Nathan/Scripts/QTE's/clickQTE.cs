@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class OSUQTE : MonoBehaviour
+public class clickQTE : MonoBehaviour
 {
     public GameObject circlePrefab;
     public RectTransform canvas;
