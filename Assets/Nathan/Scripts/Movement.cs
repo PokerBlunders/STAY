@@ -16,6 +16,9 @@ public class Movement : MonoBehaviour
     private float coyoteTimeCounter;
     private float jumpBlend;
     private bool isSitting;
+    private bool isLay;
+    private bool isSitStand;
+    private bool isSitPaw;
     private float jumpCooldownTimer;
 
     private float moveX = 0f;
@@ -38,14 +41,35 @@ public class Movement : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             isSitting = !isSitting;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            isLay = !isLay;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            isSitStand = !isSitStand;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            isSitPaw = !isSitPaw;
         }
 
         if (animator != null)
         {
             animator.SetBool("Sit", isSitting);
+
+            animator.SetBool("Lay", isLay);
+
+            animator.SetBool("SitStand", isSitStand);
+
+            animator.SetBool("SitPaw", isSitPaw);
 
             float targetWalk = moveX;
             float currentWalk = animator.GetFloat("isWalking");
