@@ -12,7 +12,7 @@ public class CursorSetting : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            cursorHotSpot = new Vector2(cursorHotSpot.x, cursorHotSpot.y);
+            cursorHotSpot = new Vector2(cursorHotSpot.x = 16f, cursorHotSpot.y = 16f);
             Cursor.SetCursor(cursor, cursorHotSpot, CursorMode.Auto);
         }
         if (Input.GetMouseButtonUp(0))
