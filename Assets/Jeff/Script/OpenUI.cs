@@ -9,6 +9,10 @@ public class OpenUI : MonoBehaviour
     public GameObject setting;
     public UnityEvent PausedAll;
     public UnityEvent ResumAll;
+
+    public GameObject[] GameObjectTabPage;
+    public Image[] ImageTab;
+
     bool isPaused;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,6 +22,7 @@ public class OpenUI : MonoBehaviour
 
         if (setting != null)
             setting.SetActive(false);
+        TabPage(0);
     }
 
     // Update is called once per frame
@@ -25,7 +30,7 @@ public class OpenUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PressedToPlay();
+            EscStep();
         }
     }
     public void PressedToPlay()
@@ -42,6 +47,19 @@ public class OpenUI : MonoBehaviour
             Time.timeScale = 1f;
             ResumAll.Invoke();
         }
+    }
+    public void TabPage(int tabWhich)
+    {
+        int count = Mathf.Min(GameObjectTabPage.Length, ImageTab.Length);
+
+        if (tabWhich < 0 || tabWhich >= count) return;
+        for (int i = 0; i < GameObjectTabPage.Length; i++)
+        {
+            GameObjectTabPage[i].SetActive(false);
+            ImageTab[i].color = Color.grey;
+        }
+        GameObjectTabPage[tabWhich].SetActive(true);
+        ImageTab[tabWhich].color = Color.white;
     }
     public void OpenSetting()
     {
@@ -60,5 +78,21 @@ public class OpenUI : MonoBehaviour
     {
         Time.timeScale = 1f; 
         SceneManager.LoadScene(sceneToGame);
+    }
+    public void EscStep()
+    {
+        if (setting.activeSelf)
+        {
+            CloseSetting();
+            return;
+        }
+
+        if (menu.activeSelf)
+        {
+            PressedToPlay();
+            return;
+        }
+
+        PressedToPlay();
     }
 }
