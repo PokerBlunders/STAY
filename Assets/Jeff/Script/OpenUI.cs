@@ -95,4 +95,8 @@ public class OpenUI : MonoBehaviour
 
         PressedToPlay();
     }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
