@@ -20,6 +20,9 @@ public class jumpQTE : MonoBehaviour
     [Header("Player Link")]
     public MovementNEW playerMovement;
 
+    [Header("Failure")]
+    public FailHandler failHandler;
+
     private bool isActive = false;
     private float currentAngle = 0f;
     private float timer = 0f;
@@ -122,13 +125,14 @@ public class jumpQTE : MonoBehaviour
 
     void FailQTE()
     {
+        Debug.Log("Jump QTE FAILED!");
         isActive = false;
+
         if (qtePanel != null)
             qtePanel.SetActive(false);
-
         if (playerMovement != null)
             playerMovement.LockMovement(false);
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+           failHandler.TriggerFail();
     }
 }
