@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class JumpQTE : MonoBehaviour
+public class jumpQTE : MonoBehaviour
 {
     [Header("UI References")]
     public GameObject qtePanel;
