@@ -10,10 +10,27 @@ public class FadeController : MonoBehaviour
     public float fadeInDelay = 0.3f;
 
     private CanvasGroup canvasGroup;
+    private Coroutine currentFade;
 
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        }
+
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -27,9 +44,18 @@ public class FadeController : MonoBehaviour
         StartCoroutine(FadeIn());
     }
 
+    public void FadeToCurrentScene()
+    {
+        if (currentFade != null)
+            StopCoroutine(currentFade);
+        currentFade = StartCoroutine(FadeOutAndLoad(SceneManager.GetActiveScene().name));
+    }
+
     public void FadeToScene(string sceneName)
     {
-        StartCoroutine(FadeOutAndLoad(sceneName));
+        if (currentFade != null)
+            StopCoroutine(currentFade);
+        currentFade = StartCoroutine(FadeOutAndLoad(sceneName));
     }
 
     IEnumerator FadeIn()
@@ -52,6 +78,9 @@ public class FadeController : MonoBehaviour
             yield return null;
         }
         canvasGroup.alpha = 1f;
+
         SceneManager.LoadScene(sceneName);
+
+        currentFade = null;
     }
 }

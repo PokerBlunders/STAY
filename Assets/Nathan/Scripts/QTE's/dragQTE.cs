@@ -14,6 +14,7 @@ public class DragQTE : MonoBehaviour
     public float timeLimit = 5f;
     public float targetValue = 0f;
     public bool failOnRelease = true;
+    public FailHandler failHandler;
 
     [Header("Player")]
     public MovementNEW playerMovement;
@@ -142,6 +143,7 @@ public class DragQTE : MonoBehaviour
         if (!isActive) return;
         Debug.Log("Drag QTE FAILED!");
 
+        // Clean up UI and unlock player (the fail handler may also lock/unlock, but we do it here for safety)
         if (dragSlider != null)
         {
             dragSlider.interactable = false;
@@ -152,6 +154,6 @@ public class DragQTE : MonoBehaviour
         if (playerMovement != null)
             playerMovement.LockMovement(false);
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        failHandler.TriggerFail();
     }
 }
