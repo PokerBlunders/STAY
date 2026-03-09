@@ -1,21 +1,31 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using System.Collections;   // Required for coroutines
 
 public class DragQTE : MonoBehaviour
 {
     [Header("UI References")]
-    public GameObject qtePanel;           // The panel containing the slider
-    public Slider dragSlider;              // The slider itself
+    public GameObject qtePanel;
+    public Slider dragSlider;
 
     [Header("Settings")]
-    public float timeLimit = 5f;           // Seconds before automatic failure
-    public float targetValue = 0f;         // 0 = bottom, 1 = top (we want bottom)
-    public bool failOnRelease = true;      // Fail if player releases before reaching target
+    public float timeLimit = 5f;
+    public float targetValue = 0f;
+    public bool failOnRelease = true;
 
     [Header("Player")]
-    public MovementNEW playerMovement;      // Reference to player�s movement script (to lock controls)
+    public MovementNEW playerMovement;
+
+    [Header("Animation on Success")]
+    public MovementNEW.AnimationType successAnimation = MovementNEW.AnimationType.Sit;
+    public float animationDuration = 2f;
+    public float postAnimationLock = 0.5f;   // extra lock time after animation ends
+
+    [Header("Next QTE")]
+    public GameObject nextQTE;
+    public bool StandUpAtEnd;   // Checkbox to control final standing
 
     private bool isActive = false;
     private float timer = 0f;
@@ -26,7 +36,6 @@ public class DragQTE : MonoBehaviour
         if (qtePanel != null)
             qtePanel.SetActive(false);
 
-        // Ensure slider starts at the top (value = 1)
         if (dragSlider != null)
         {
             dragSlider.value = 1f;
@@ -48,13 +57,11 @@ public class DragQTE : MonoBehaviour
         hasSucceeded = false;
         timer = 0f;
 
-        // Show UI and lock player movement
         if (qtePanel != null)
             qtePanel.SetActive(true);
         if (playerMovement != null)
             playerMovement.LockMovement(true);
 
-        // Reset slider and enable it
         if (dragSlider != null)
         {
             dragSlider.value = 1f;
@@ -78,14 +85,12 @@ public class DragQTE : MonoBehaviour
     {
         if (!isActive || hasSucceeded) return;
 
-        // Check if the slider has reached the target (bottom)
         if (Mathf.Approximately(value, targetValue))
         {
             SuccessQTE();
         }
     }
 
-    // Called by the EventTrigger on the handle when the mouse button is released
     public void OnHandlePointerUp()
     {
         if (!isActive || hasSucceeded) return;
@@ -101,7 +106,17 @@ public class DragQTE : MonoBehaviour
         Debug.Log("Drag QTE SUCCESS!");
         hasSucceeded = true;
 
-        // Clean up
+        // Play the selected animation, passing the standUpAtEnd flag
+        if (playerMovement != null)
+            playerMovement.PlayAnimation(successAnimation, animationDuration, postAnimationLock, StandUpAtEnd);
+
+        // Start coroutine to enable next QTE after animation + post‑lock
+        if (nextQTE != null)
+        {
+            StartCoroutine(EnableNextQTEDelayed());
+        }
+
+        // Clean up UI
         if (dragSlider != null)
         {
             dragSlider.interactable = false;
@@ -109,11 +124,17 @@ public class DragQTE : MonoBehaviour
         }
         if (qtePanel != null)
             qtePanel.SetActive(false);
-        if (playerMovement != null)
-            playerMovement.LockMovement(false);
 
         // Disable this trigger so it doesn't activate again
         GetComponent<Collider>().enabled = false;
+    }
+
+    IEnumerator EnableNextQTEDelayed()
+    {
+        float totalDelay = animationDuration;
+        yield return new WaitForSeconds(totalDelay);
+        if (nextQTE != null)
+            nextQTE.SetActive(true);
     }
 
     void FailQTE()
@@ -121,7 +142,6 @@ public class DragQTE : MonoBehaviour
         if (!isActive) return;
         Debug.Log("Drag QTE FAILED!");
 
-        // Clean up and restart level
         if (dragSlider != null)
         {
             dragSlider.interactable = false;

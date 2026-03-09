@@ -1,8 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class MovementNEW : MonoBehaviour
 {
+    // Animation types that can be triggered externally
+    public enum AnimationType { Sit, SitLay, SitStand, SitPaw }
+
     public float moveSpeed = 1f;
     public float jumpForce = 3.5f;
     public float gravity = -9f;
@@ -16,7 +19,7 @@ public class MovementNEW : MonoBehaviour
     private float coyoteTimeCounter;
     private float jumpBlend;
     private bool isSitting;
-    private bool isLay;
+    private bool isSitLay;
     private bool isSitStand;
     private bool isSitPaw;
 
@@ -30,6 +33,9 @@ public class MovementNEW : MonoBehaviour
     private float autoMoveDuration = 0.5f;
 
     private float moveX = 0f;
+
+    // Animation coroutine reference
+    private Coroutine currentAnimationCoroutine;
 
     void Start()
     {
@@ -51,19 +57,11 @@ public class MovementNEW : MonoBehaviour
             jumpTrigger = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            isSitting = !isSitting;
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            isLay = !isLay;
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            isSitStand = !isSitStand;
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-            isSitPaw = !isSitPaw;
 
         if (animator != null)
         {
             animator.SetBool("Sit", isSitting);
-            animator.SetBool("Lay", isLay);
+            animator.SetBool("SitLay", isSitLay);
             animator.SetBool("SitStand", isSitStand);
             animator.SetBool("SitPaw", isSitPaw);
 
@@ -151,7 +149,6 @@ public class MovementNEW : MonoBehaviour
             jumpForceOverride = overrideJumpForce;
 
         airSpeedMultiplier = overrideAirSpeed;
-
         jumpTrigger = true;
 
         autoMoveActive = true;
@@ -164,5 +161,85 @@ public class MovementNEW : MonoBehaviour
         if (overrideJumpForce > 0)
             jumpForceOverride = overrideJumpForce;
         jumpTrigger = true;
+    }
+
+    // Play an animation, lock movement for its duration, and optionally stand up at the end
+    public void PlayAnimation(AnimationType type, float duration, float postLockDuration = 0f, bool standUpAtEnd = true)
+    {
+        // Stop any currently playing animation coroutine
+        if (currentAnimationCoroutine != null)
+            StopCoroutine(currentAnimationCoroutine);
+
+        // Reset all special flags, set the chosen one correctly
+        switch (type)
+        {
+            case AnimationType.Sit:
+                isSitLay = false;
+                isSitStand = false;
+                isSitPaw = false;
+                isSitting = true;
+                break;
+
+            case AnimationType.SitLay:
+                isSitStand = false;
+                isSitPaw = false;
+                isSitting = true;   // sit required before lay
+                isSitLay = true;
+                break;
+
+            case AnimationType.SitStand:
+                isSitLay = false;
+                isSitPaw = false;
+                isSitting = true;
+                isSitStand = true;
+                break;
+
+            case AnimationType.SitPaw:
+                isSitLay = false;
+                isSitStand = false;
+                isSitting = true;
+                isSitPaw = true;
+                break;
+        }
+
+        LockMovement(true);
+        currentAnimationCoroutine = StartCoroutine(AnimationDurationRoutine(type, duration, postLockDuration, standUpAtEnd));
+    }
+
+    private IEnumerator AnimationDurationRoutine(AnimationType type, float duration, float postLockDuration, bool standUpAtEnd)
+    {
+        yield return new WaitForSeconds(duration);
+
+        // After duration, reset the triggered animation appropriately
+        switch (type)
+        {
+            case AnimationType.Sit:
+                // Nothing to reset – we'll handle stand later
+                break;
+            case AnimationType.SitLay:
+                isSitLay = false;
+                // isSitting remains true
+                break;
+            case AnimationType.SitStand:
+                isSitStand = false;
+                // isSitting remains true
+                break;
+            case AnimationType.SitPaw:
+                isSitPaw = false;
+                // isSitting remains true
+                break;
+        }
+
+        if (standUpAtEnd)
+        {
+            isSitting = false;
+        }
+
+        // Extra lock time after the animation
+        if (postLockDuration > 0)
+            yield return new WaitForSeconds(postLockDuration);
+
+        LockMovement(false);
+        currentAnimationCoroutine = null;
     }
 }
