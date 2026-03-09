@@ -3,12 +3,11 @@ using System.Collections;
 
 public class MovementNEW : MonoBehaviour
 {
-    public float moveSpeed = 6f;
-    public float jumpForce = 8f;
-    public float gravity = -25f;
+    public float moveSpeed = 1f;
+    public float jumpForce = 3.5f;
+    public float gravity = -9f;
     public float groundStickForce = -5f;
     public float coyoteTime = 0.15f;
-    public float jumpCooldown = 0.2f;
 
     private CharacterController controller;
     public Animator animator;
@@ -20,9 +19,11 @@ public class MovementNEW : MonoBehaviour
     private bool isLay;
     private bool isSitStand;
     private bool isSitPaw;
-    private float jumpCooldownTimer;
 
     private bool jumpTrigger = false;
+    private float jumpForceOverride = -1f;
+    private float airSpeedMultiplier = 1f;
+
     private bool movementLocked = false;
     private bool autoMoveActive = false;
     private float autoMoveTimer = 0f;
@@ -82,6 +83,7 @@ public class MovementNEW : MonoBehaviour
             if (autoMoveTimer <= 0f)
             {
                 autoMoveActive = false;
+                airSpeedMultiplier = 1f;
                 if (movementLocked)
                     LockMovement(false);
             }
@@ -91,9 +93,6 @@ public class MovementNEW : MonoBehaviour
     void FixedUpdate()
     {
         bool isGrounded = controller.isGrounded;
-
-        if (jumpCooldownTimer > 0f)
-            jumpCooldownTimer -= Time.fixedDeltaTime;
 
         if (isGrounded)
         {
@@ -110,7 +109,7 @@ public class MovementNEW : MonoBehaviour
 
         float horizontalSpeed = 0f;
         if (autoMoveActive)
-            horizontalSpeed = moveSpeed;
+            horizontalSpeed = moveSpeed * airSpeedMultiplier;
         else if (!movementLocked)
             horizontalSpeed = moveX * moveSpeed;
 
@@ -125,12 +124,13 @@ public class MovementNEW : MonoBehaviour
     void Jump()
     {
         bool isGrounded = controller.isGrounded;
-        if (coyoteTimeCounter > 0f && jumpCooldownTimer <= 0f)
+        if (coyoteTimeCounter > 0f)
         {
-            velocity.y = jumpForce;
+            float force = (jumpForceOverride >= 0) ? jumpForceOverride : jumpForce;
+            velocity.y = force;
             coyoteTimeCounter = 0f;
-            jumpCooldownTimer = jumpCooldown;
             isSitting = false;
+            jumpForceOverride = -1f;
         }
     }
 
@@ -141,20 +141,28 @@ public class MovementNEW : MonoBehaviour
         {
             autoMoveActive = false;
             moveX = 0f;
+            airSpeedMultiplier = 1f;
         }
     }
 
-    public void PerformJumpLunge(float duration = 0.5f)
+    public void PerformJumpLunge(float duration = 0.5f, float overrideJumpForce = -1f, float overrideAirSpeed = 1f)
     {
-        Jump();
+        if (overrideJumpForce > 0)
+            jumpForceOverride = overrideJumpForce;
+
+        airSpeedMultiplier = overrideAirSpeed;
+
+        jumpTrigger = true;
 
         autoMoveActive = true;
         autoMoveDuration = duration;
         autoMoveTimer = duration;
     }
 
-    public void ActivateJump()
+    public void ActivateJump(float overrideJumpForce = -1f)
     {
+        if (overrideJumpForce > 0)
+            jumpForceOverride = overrideJumpForce;
         jumpTrigger = true;
     }
 }

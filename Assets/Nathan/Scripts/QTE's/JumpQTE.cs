@@ -14,6 +14,8 @@ public class JumpQTE : MonoBehaviour
     public KeyCode triggerKey = KeyCode.Space;
     public float timeOut = 5f;
     public float lungeDuration = 0.5f;
+    public float jumpForceOverride = 0f;
+    public float airSpeedMultiplier = 1f;
 
     [Header("Player Link")]
     public MovementNEW playerMovement;
@@ -108,12 +110,8 @@ public class JumpQTE : MonoBehaviour
 
     void SuccessQTE()
     {
-        Debug.Log("Skill check SUCCESS!");
-
         if (playerMovement != null)
-            playerMovement.PerformJumpLunge(lungeDuration);
-        else
-            Debug.LogWarning("JumpQTE: playerMovement not assigned!");
+            playerMovement.PerformJumpLunge(lungeDuration, jumpForceOverride, airSpeedMultiplier);
 
         isActive = false;
         if (qtePanel != null)
@@ -124,7 +122,6 @@ public class JumpQTE : MonoBehaviour
 
     void FailQTE()
     {
-        Debug.Log("Skill check FAILED!");
         isActive = false;
         if (qtePanel != null)
             qtePanel.SetActive(false);
