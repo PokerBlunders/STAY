@@ -4,15 +4,19 @@ using UnityEngine.SceneManagement;
 public class JumpQTE : MonoBehaviour
 {
     [Header("UI References")]
-    public GameObject qtePanel;           // The panel containing the skill check UI
-    public RectTransform needle;           // The rotating needle
-    public float targetAngleMin = 240f;    // Start of safe zone (degrees)
-    public float targetAngleMax = 300f;     // End of safe zone (degrees) – crosses 0°
+    public GameObject qtePanel;
+    public RectTransform needle;
+    public float targetAngleMin = 240f;
+    public float targetAngleMax = 300f;
 
     [Header("Settings")]
-    public float rotationSpeed = 180f;     // Degrees per second
+    public float rotationSpeed = 180f;
     public KeyCode triggerKey = KeyCode.Space;
-    public float timeOut = 5f;             // Seconds before automatic fail (0 = no timeout)
+    public float timeOut = 5f;
+    public float lungeDuration = 0.5f;
+
+    [Header("Player Link")]
+    public MovementNEW playerMovement;
 
     private bool isActive = false;
     private float currentAngle = 0f;
@@ -22,6 +26,13 @@ public class JumpQTE : MonoBehaviour
     {
         if (qtePanel != null)
             qtePanel.SetActive(false);
+
+        if (playerMovement == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+                playerMovement = player.GetComponent<MovementNEW>();
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -37,6 +48,10 @@ public class JumpQTE : MonoBehaviour
         isActive = true;
         timer = 0f;
         currentAngle = 0f;
+
+        if (playerMovement != null)
+            playerMovement.LockMovement(true);
+
         if (qtePanel != null)
             qtePanel.SetActive(true);
         UpdateNeedle();
@@ -46,12 +61,10 @@ public class JumpQTE : MonoBehaviour
     {
         if (!isActive) return;
 
-        // Rotate needle
         currentAngle += rotationSpeed * Time.deltaTime;
-        currentAngle %= 360f; // keep within 0-360
+        currentAngle %= 360f;
         UpdateNeedle();
 
-        // Timeout
         if (timeOut > 0f)
         {
             timer += Time.deltaTime;
@@ -62,7 +75,6 @@ public class JumpQTE : MonoBehaviour
             }
         }
 
-        // Check for key press
         if (Input.GetKeyDown(triggerKey))
         {
             CheckSkill();
@@ -88,26 +100,25 @@ public class JumpQTE : MonoBehaviour
 
     bool IsAngleInTargetZone(float angle)
     {
-        // Normalise target range that may cross 0°
         if (targetAngleMin <= targetAngleMax)
-        {
-            // Range does not cross 0°
             return angle >= targetAngleMin && angle <= targetAngleMax;
-        }
         else
-        {
-            // Range crosses 0° (e.g., 300° to 60°)
             return angle >= targetAngleMin || angle <= targetAngleMax;
-        }
     }
 
     void SuccessQTE()
     {
         Debug.Log("Skill check SUCCESS!");
+
+        if (playerMovement != null)
+            playerMovement.PerformJumpLunge(lungeDuration);
+        else
+            Debug.LogWarning("JumpQTE: playerMovement not assigned!");
+
         isActive = false;
         if (qtePanel != null)
             qtePanel.SetActive(false);
-        // Optionally disable the trigger so it doesn't repeat
+
         GetComponent<Collider>().enabled = false;
     }
 
@@ -117,7 +128,10 @@ public class JumpQTE : MonoBehaviour
         isActive = false;
         if (qtePanel != null)
             qtePanel.SetActive(false);
-        // Restart the level
+
+        if (playerMovement != null)
+            playerMovement.LockMovement(false);
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

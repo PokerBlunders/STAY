@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class MovementNEW : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class MovementNEW : MonoBehaviour
     private float jumpCooldownTimer;
 
     private bool jumpTrigger = false;
+    private bool movementLocked = false;
+    private bool autoMoveActive = false;
+    private float autoMoveTimer = 0f;
+    private float autoMoveDuration = 0.5f;
 
     private float moveX = 0f;
 
@@ -32,48 +37,36 @@ public class MovementNEW : MonoBehaviour
 
     void Update()
     {
-        moveX = 0f;
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        if (!movementLocked && !autoMoveActive)
         {
-            moveX = 1f;
+            moveX = 0f;
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+                moveX = 1f;
         }
 
-        if (jumpTrigger == true)
+        if (jumpTrigger)
         {
             Jump();
+            jumpTrigger = false;
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
             isSitting = !isSitting;
-        }
-
         if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
             isLay = !isLay;
-        }
-
         if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
             isSitStand = !isSitStand;
-        }
-
         if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
             isSitPaw = !isSitPaw;
-        }
 
         if (animator != null)
         {
             animator.SetBool("Sit", isSitting);
-
             animator.SetBool("Lay", isLay);
-
             animator.SetBool("SitStand", isSitStand);
-
             animator.SetBool("SitPaw", isSitPaw);
 
-            float targetWalk = moveX;
+            float targetWalk = (autoMoveActive || moveX > 0f) ? 1f : 0f;
             float currentWalk = animator.GetFloat("isWalking");
             animator.SetFloat("isWalking", Mathf.MoveTowards(currentWalk, targetWalk, Time.deltaTime * 5f));
 
@@ -81,6 +74,17 @@ public class MovementNEW : MonoBehaviour
             float targetJump = isGrounded ? 0f : 1f;
             jumpBlend = Mathf.MoveTowards(jumpBlend, targetJump, Time.deltaTime * 6f);
             animator.SetFloat("isJumping", jumpBlend);
+        }
+
+        if (autoMoveActive)
+        {
+            autoMoveTimer -= Time.deltaTime;
+            if (autoMoveTimer <= 0f)
+            {
+                autoMoveActive = false;
+                if (movementLocked)
+                    LockMovement(false);
+            }
         }
     }
 
@@ -104,7 +108,13 @@ public class MovementNEW : MonoBehaviour
 
         velocity.y += gravity * Time.fixedDeltaTime;
 
-        Vector3 move = new Vector3(moveX * moveSpeed, velocity.y, 0f);
+        float horizontalSpeed = 0f;
+        if (autoMoveActive)
+            horizontalSpeed = moveSpeed;
+        else if (!movementLocked)
+            horizontalSpeed = moveX * moveSpeed;
+
+        Vector3 move = new Vector3(horizontalSpeed, velocity.y, 0f);
         controller.Move(move * Time.fixedDeltaTime);
 
         Vector3 pos = transform.position;
@@ -122,5 +132,29 @@ public class MovementNEW : MonoBehaviour
             jumpCooldownTimer = jumpCooldown;
             isSitting = false;
         }
+    }
+
+    public void LockMovement(bool locked)
+    {
+        movementLocked = locked;
+        if (locked)
+        {
+            autoMoveActive = false;
+            moveX = 0f;
+        }
+    }
+
+    public void PerformJumpLunge(float duration = 0.5f)
+    {
+        Jump();
+
+        autoMoveActive = true;
+        autoMoveDuration = duration;
+        autoMoveTimer = duration;
+    }
+
+    public void ActivateJump()
+    {
+        jumpTrigger = true;
     }
 }
