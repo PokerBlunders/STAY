@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class OpenUI : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class OpenUI : MonoBehaviour
 
     public GameObject[] GameObjectTabPage;
     public Image[] ImageTab;
+
+    public AudioUI[] SoundIn;
+    public AudioSource[] Audio;
 
     bool isPaused;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -95,8 +99,15 @@ public class OpenUI : MonoBehaviour
 
         PressedToPlay();
     }
+
+
     public void QuitGame()
     {
         Application.Quit();
     }
+
+    //public void PlaySound(string name)
+    //{
+    //    SoundIn s  = Array.Find() 
+    //}
 }
