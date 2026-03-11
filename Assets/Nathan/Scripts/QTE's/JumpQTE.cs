@@ -11,7 +11,6 @@ public class jumpQTE : MonoBehaviour
 
     [Header("Setting")]
     public float rotationSpeed = 180f;
-    public KeyCode triggerKey = KeyCode.Space;
     public float timeOut = 5f;
     public float lungeDuration = 0.5f;
     public float jumpForceOverride = 0f;
@@ -78,7 +77,7 @@ public class jumpQTE : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(triggerKey))
+        if (Input.GetMouseButtonDown(0))
         {
             CheckSkill();
         }
