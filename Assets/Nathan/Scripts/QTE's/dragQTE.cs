@@ -2,11 +2,11 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using System.Collections;   // Required for coroutines
+using System.Collections;
 
 public class DragQTE : MonoBehaviour
 {
-    [Header("UI References")]
+    [Header("UI")]
     public GameObject qtePanel;
     public Slider dragSlider;
 
@@ -19,14 +19,14 @@ public class DragQTE : MonoBehaviour
     [Header("Player")]
     public MovementNEW playerMovement;
 
-    [Header("Animation on Success")]
+    [Header("Animation")]
     public MovementNEW.AnimationType successAnimation = MovementNEW.AnimationType.Sit;
     public float animationDuration = 2f;
-    public float postAnimationLock = 0.5f;   // extra lock time after animation ends
+    public float postAnimationLock = 0.5f;
 
     [Header("Next QTE")]
     public GameObject nextQTE;
-    public bool StandUpAtEnd;   // Checkbox to control final standing
+    public bool StandUpAtEnd;
 
     private bool isActive = false;
     private float timer = 0f;
@@ -104,20 +104,16 @@ public class DragQTE : MonoBehaviour
 
     void SuccessQTE()
     {
-        Debug.Log("Drag QTE SUCCESS!");
         hasSucceeded = true;
 
-        // Play the selected animation, passing the standUpAtEnd flag
         if (playerMovement != null)
             playerMovement.PlayAnimation(successAnimation, animationDuration, postAnimationLock, StandUpAtEnd);
 
-        // Start coroutine to enable next QTE after animation + post‑lock
         if (nextQTE != null)
         {
             StartCoroutine(EnableNextQTEDelayed());
         }
 
-        // Clean up UI
         if (dragSlider != null)
         {
             dragSlider.interactable = false;
@@ -126,7 +122,6 @@ public class DragQTE : MonoBehaviour
         if (qtePanel != null)
             qtePanel.SetActive(false);
 
-        // Disable this trigger so it doesn't activate again
         GetComponent<Collider>().enabled = false;
     }
 
@@ -141,9 +136,7 @@ public class DragQTE : MonoBehaviour
     void FailQTE()
     {
         if (!isActive) return;
-        Debug.Log("Drag QTE FAILED!");
 
-        // Clean up UI and unlock player (the fail handler may also lock/unlock, but we do it here for safety)
         if (dragSlider != null)
         {
             dragSlider.interactable = false;

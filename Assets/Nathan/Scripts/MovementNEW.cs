@@ -3,7 +3,6 @@ using System.Collections;
 
 public class MovementNEW : MonoBehaviour
 {
-    // Animation types that can be triggered externally
     public enum AnimationType { Sit, SitLay, SitStand, SitPaw }
 
     public float moveSpeed = 1f;
@@ -34,7 +33,6 @@ public class MovementNEW : MonoBehaviour
 
     private float moveX = 0f;
 
-    // Animation coroutine reference
     private Coroutine currentAnimationCoroutine;
 
     void Start()
@@ -163,14 +161,11 @@ public class MovementNEW : MonoBehaviour
         jumpTrigger = true;
     }
 
-    // Play an animation, lock movement for its duration, and optionally stand up at the end
     public void PlayAnimation(AnimationType type, float duration, float postLockDuration = 0f, bool standUpAtEnd = true)
     {
-        // Stop any currently playing animation coroutine
         if (currentAnimationCoroutine != null)
             StopCoroutine(currentAnimationCoroutine);
 
-        // Reset all special flags, set the chosen one correctly
         switch (type)
         {
             case AnimationType.Sit:
@@ -183,7 +178,7 @@ public class MovementNEW : MonoBehaviour
             case AnimationType.SitLay:
                 isSitStand = false;
                 isSitPaw = false;
-                isSitting = true;   // sit required before lay
+                isSitting = true;
                 isSitLay = true;
                 break;
 
@@ -210,23 +205,18 @@ public class MovementNEW : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
 
-        // After duration, reset the triggered animation appropriately
         switch (type)
         {
             case AnimationType.Sit:
-                // Nothing to reset – we'll handle stand later
                 break;
             case AnimationType.SitLay:
                 isSitLay = false;
-                // isSitting remains true
                 break;
             case AnimationType.SitStand:
                 isSitStand = false;
-                // isSitting remains true
                 break;
             case AnimationType.SitPaw:
                 isSitPaw = false;
-                // isSitting remains true
                 break;
         }
 
@@ -235,7 +225,6 @@ public class MovementNEW : MonoBehaviour
             isSitting = false;
         }
 
-        // Extra lock time after the animation
         if (postLockDuration > 0)
             yield return new WaitForSeconds(postLockDuration);
 

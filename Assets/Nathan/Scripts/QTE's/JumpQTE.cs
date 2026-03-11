@@ -3,13 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class jumpQTE : MonoBehaviour
 {
-    [Header("UI References")]
+    [Header("UI")]
     public GameObject qtePanel;
     public RectTransform needle;
     public float targetAngleMin = 240f;
     public float targetAngleMax = 300f;
 
-    [Header("Settings")]
+    [Header("Setting")]
     public float rotationSpeed = 180f;
     public KeyCode triggerKey = KeyCode.Space;
     public float timeOut = 5f;
@@ -17,10 +17,8 @@ public class jumpQTE : MonoBehaviour
     public float jumpForceOverride = 0f;
     public float airSpeedMultiplier = 1f;
 
-    [Header("Player Link")]
+    [Header("Scripts")]
     public MovementNEW playerMovement;
-
-    [Header("Failure")]
     public FailHandler failHandler;
 
     private bool isActive = false;
@@ -125,7 +123,6 @@ public class jumpQTE : MonoBehaviour
 
     void FailQTE()
     {
-        Debug.Log("Jump QTE FAILED!");
         isActive = false;
 
         if (qtePanel != null)
