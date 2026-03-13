@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 6277577039365993157}
   - component: {fileID: 1101930721408825387}
   m_Layer: 5
-  m_Name: osuQTE
+  m_Name: QTEButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

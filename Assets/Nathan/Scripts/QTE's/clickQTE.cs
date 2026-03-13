@@ -1,25 +1,60 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class clickQTE : MonoBehaviour
 {
-    public GameObject circlePrefab;
-    public RectTransform canvas;
+    public enum QTEType { Crouch, LeftRight }
 
-    public int circlesToSpawn = 4;
-    public float spawnInterval = 1f;
-    public float circleLifeTime = 1.0f;
+    [Header("UI References")]
+    public GameObject qtePanel;
+    public GameObject buttonPrefab;
+    public RectTransform[] spawnPositions;
 
-    private bool isQTERunning = false;
-    private int clickedCount = 0;
-    private int totalCirclesSpawned = 0;
-    private bool hasFailed = false;
+    [Header("Settings")]
+    public QTEType type = QTEType.Crouch;
+    public float timePerStep = 2f;
+    public float[] perStepTimeOverrides;
+    public float crouchMoveSpeed = 1f;        // Speed during crouch sequence
+    public float leftRightMoveSpeed = 1f;      // Speed during left/right sequence
+    
+    [Header("Left/Right Dodge Settings")]
+    public float dodgeInterval = 0.5f;      // time between left/right switches
+    public bool startWithLeft = true;       // whether to start with left or right
+
+    [Header("Player")]
+    public MovementNEW playerMovement;
+
+    [Header("Finish Zone")]
+    public Collider finishZone;
+
+    [Header("Failure")]
+    public FailHandler failHandler;
+
+    private GameObject currentButton;
+    private int currentIndex = 0;
+    private float timer = 0f;
+    private bool isActive = false;
+    private bool sequenceCompleted = false;
+
+    void Start()
+    {
+        if (qtePanel != null)
+            qtePanel.SetActive(false);
+
+        if (playerMovement == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null) playerMovement = player.GetComponent<MovementNEW>();
+        }
+        if (failHandler == null)
+            failHandler = FindObjectOfType<FailHandler>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isQTERunning)
+        if (other.CompareTag("Player") && !isActive)
         {
             StartQTE();
         }
@@ -27,83 +62,137 @@ public class clickQTE : MonoBehaviour
 
     void StartQTE()
     {
-        isQTERunning = true;
-        clickedCount = 0;
-        totalCirclesSpawned = 0;
-        hasFailed = false;
+        isActive = true;
+        currentIndex = 0;
+        sequenceCompleted = false;
 
-        StartCoroutine(SpawnCircles());
-    }
-
-    IEnumerator SpawnCircles()
-    {
-        while (totalCirclesSpawned < circlesToSpawn && !hasFailed)
+        // Start the appropriate animation with the chosen speed
+        if (playerMovement != null)
         {
-            SpawnCircle();
-            totalCirclesSpawned++;
-            yield return new WaitForSeconds(spawnInterval);
+            if (type == QTEType.Crouch)
+                playerMovement.StartCrouchSequence(crouchMoveSpeed);
+            else
+                playerMovement.StartLeftRightSequence(leftRightMoveSpeed, true); // true = start left
         }
 
-        if (!hasFailed && clickedCount >= circlesToSpawn)
+        // Show panel
+        if (qtePanel != null)
+            qtePanel.SetActive(true);
+
+        SpawnButtonAtCurrentPosition();
+        timer = GetCurrentStepTime();
+    }
+
+    void Update()
+    {
+        if (!isActive) return;
+
+        if (!sequenceCompleted)
         {
-            QTESuccess();
+            timer -= Time.deltaTime;
+            if (timer <= 0f)
+            {
+                FailQTE();
+                return;
+            }
         }
-    }
 
-    void SpawnCircle()
-    {
-        if (hasFailed) return;
-
-        Vector2 randomPos = new Vector2(
-            Random.Range(-300, 300),
-            Random.Range(-200, 200)
-        );
-
-        GameObject circle = Instantiate(circlePrefab, canvas);
-        circle.GetComponent<RectTransform>().anchoredPosition = randomPos;
-
-        circle.GetComponent<Button>().onClick.AddListener(() =>
+        if (sequenceCompleted && finishZone != null && playerMovement != null)
         {
-            OnCircleClicked(circle);
-        });
-        StartCoroutine(CheckIfMissed(circle));
-    }
-
-    IEnumerator CheckIfMissed(GameObject circle)
-    {
-        yield return new WaitForSeconds(circleLifeTime);
-        if (circle != null && !hasFailed)
-        {
-            QTEFail();
+            if (finishZone.bounds.Contains(playerMovement.transform.position))
+            {
+                SuccessQTE();
+            }
         }
     }
 
-    void OnCircleClicked(GameObject circle)
+    void SpawnButtonAtCurrentPosition()
     {
-        if (hasFailed) return;
+        if (currentButton != null)
+            Destroy(currentButton);
 
-        clickedCount++;
-        Destroy(circle);
-
-        if (clickedCount >= circlesToSpawn && totalCirclesSpawned >= circlesToSpawn)
+        if (buttonPrefab != null && spawnPositions.Length > 0 && currentIndex < spawnPositions.Length)
         {
-            QTESuccess();
+            currentButton = Instantiate(buttonPrefab, spawnPositions[currentIndex].position, Quaternion.identity, spawnPositions[currentIndex].parent);
+            Button btn = currentButton.GetComponent<Button>();
+            if (btn != null)
+            {
+                btn.onClick.RemoveAllListeners();
+                btn.onClick.AddListener(OnButtonClicked);
+            }
         }
     }
 
-    void QTESuccess()
+    void OnButtonClicked()
     {
-        if (hasFailed) return;
+        if (!isActive) return;
+
+        currentIndex++;
+
+        // Swap dodge direction for left/right QTE
+        if (type == QTEType.LeftRight && playerMovement != null)
+        {
+            playerMovement.SwapDodge();
+        }
+
+        if (currentIndex >= spawnPositions.Length)
+        {
+            sequenceCompleted = true;
+            if (currentButton != null)
+                Destroy(currentButton);
+            if (qtePanel != null)
+                qtePanel.SetActive(false);
+        }
+        else
+        {
+            SpawnButtonAtCurrentPosition();
+            timer = GetCurrentStepTime();
+        }
+    }
+
+    float GetCurrentStepTime()
+    {
+        if (perStepTimeOverrides != null && currentIndex < perStepTimeOverrides.Length)
+            return perStepTimeOverrides[currentIndex];
+        else
+            return timePerStep;
+    }
+
+    void SuccessQTE()
+    {
+        Debug.Log("Position Sequence QTE SUCCESS!");
+        isActive = false;
+
+        if (qtePanel != null)
+            qtePanel.SetActive(false);
+        if (currentButton != null)
+            Destroy(currentButton);
+
+        if (playerMovement != null)
+            playerMovement.StopSequence();
+        if (type == QTEType.Crouch)
+        {
+            playerMovement.ResetCrouchWalk();
+        }
 
         GetComponent<Collider>().enabled = false;
-        isQTERunning = false;
     }
 
-    void QTEFail()
+    void FailQTE()
     {
-        if (hasFailed) return;
-        hasFailed = true;
+        if (!isActive) return;
+        Debug.Log("Position Sequence QTE FAILED!");
+        isActive = false;
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (failHandler != null)
+            failHandler.TriggerFail();
+
+        if (qtePanel != null)
+            qtePanel.SetActive(false);
+        if (currentButton != null)
+            Destroy(currentButton);
+
+        if (playerMovement != null)
+            playerMovement.StopSequence();
     }
 }

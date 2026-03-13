@@ -16,22 +16,31 @@ public class FailHandler : MonoBehaviour
         if (isFailing) return;
         isFailing = true;
 
+        // Lock player movement
         if (playerMovement != null)
             playerMovement.LockMovement(true);
 
-        if (playerMovement != null)
+        // Check if the dog was in crouch walk mode
+        if (playerMovement != null && playerMovement.isCrouchWalk)
+        {
+            animator.SetBool("CrouchShock", true);
+        }
+        else
+        {
             animator.SetBool("Shock", true);
-        
-        shockParticles.SetActive(true);
+        }
 
+        // Activate particles
+        if (shockParticles != null)
+            shockParticles.SetActive(true);
+
+        // Start the fail timer, then fade and restart
         StartCoroutine(RestartAfterFail());
     }
 
     private IEnumerator RestartAfterFail()
     {
         yield return new WaitForSeconds(failAnimationDuration);
-
         FadeController.Instance.FadeToCurrentScene();
-
     }
 }

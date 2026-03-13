@@ -21,6 +21,12 @@ public class MovementNEW : MonoBehaviour
     private bool isSitLay;
     private bool isSitStand;
     private bool isSitPaw;
+    private bool isCrouchShock;
+    private bool isLeftDodge;
+    private bool isRightDodge;
+
+    [HideInInspector]
+    public bool isCrouchWalk;
 
     private bool jumpTrigger = false;
     private float jumpForceOverride = -1f;
@@ -28,12 +34,14 @@ public class MovementNEW : MonoBehaviour
 
     private bool movementLocked = false;
     private bool autoMoveActive = false;
+    private float autoMoveSpeed = 0f;
     private float autoMoveTimer = 0f;
     private float autoMoveDuration = 0.5f;
 
     private float moveX = 0f;
 
     private Coroutine currentAnimationCoroutine;
+    private Coroutine dodgeCoroutine;
 
     void Start()
     {
@@ -42,44 +50,80 @@ public class MovementNEW : MonoBehaviour
 
     void Update()
     {
+        // Normal player input (only when not locked and not auto‑moving)
         if (!movementLocked && !autoMoveActive)
         {
             moveX = 0f;
-            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D))
                 moveX = 1f;
         }
 
+        // Jump trigger from QTE
         if (jumpTrigger)
         {
             Jump();
             jumpTrigger = false;
         }
 
-
+        // Animator updates
         if (animator != null)
         {
+            // Set all boolean parameters
             animator.SetBool("Sit", isSitting);
             animator.SetBool("SitLay", isSitLay);
             animator.SetBool("SitStand", isSitStand);
             animator.SetBool("SitPaw", isSitPaw);
+            animator.SetBool("CrouchWalk", isCrouchWalk);
+            animator.SetBool("CrouchShock", isCrouchShock);
+            animator.SetBool("LeftDodge", isLeftDodge);
+            animator.SetBool("RightDodge", isRightDodge);
 
-            float targetWalk = (autoMoveActive || moveX > 0f) ? 1f : 0f;
+            // Determine the target walking float
+            float targetWalk = 0f;
+
+            if (!movementLocked && !autoMoveActive)
+            {
+                // Normal movement – walking float follows player input
+                targetWalk = moveX;
+            }
+            else if (autoMoveActive)
+            {
+                // Automatic movement (QTE sequences)
+                if (isCrouchWalk)
+                {
+                    // Crouch walk uses the walking float
+                    targetWalk = 1f;
+                }
+                else if (isLeftDodge || isRightDodge)
+                {
+                    // Dodge animations should NOT use walking float
+                    targetWalk = 0f;
+                }
+                else
+                {
+                    // Fallback (e.g., jump lunge) – assume walking
+                    targetWalk = 1f;
+                }
+            }
+
+            // Smoothly blend the walking float
             float currentWalk = animator.GetFloat("isWalking");
             animator.SetFloat("isWalking", Mathf.MoveTowards(currentWalk, targetWalk, Time.deltaTime * 5f));
 
+            // Jump blend
             bool isGrounded = controller.isGrounded;
             float targetJump = isGrounded ? 0f : 1f;
             jumpBlend = Mathf.MoveTowards(jumpBlend, targetJump, Time.deltaTime * 6f);
             animator.SetFloat("isJumping", jumpBlend);
         }
 
+        // Auto‑move duration timer
         if (autoMoveActive)
         {
             autoMoveTimer -= Time.deltaTime;
             if (autoMoveTimer <= 0f)
             {
                 autoMoveActive = false;
-                airSpeedMultiplier = 1f;
                 if (movementLocked)
                     LockMovement(false);
             }
@@ -90,6 +134,7 @@ public class MovementNEW : MonoBehaviour
     {
         bool isGrounded = controller.isGrounded;
 
+        // Coyote time and ground stick
         if (isGrounded)
         {
             coyoteTimeCounter = coyoteTime;
@@ -101,17 +146,20 @@ public class MovementNEW : MonoBehaviour
             coyoteTimeCounter -= Time.fixedDeltaTime;
         }
 
+        // Apply gravity
         velocity.y += gravity * Time.fixedDeltaTime;
 
+        // Determine horizontal speed
         float horizontalSpeed = 0f;
         if (autoMoveActive)
-            horizontalSpeed = moveSpeed * airSpeedMultiplier;
+            horizontalSpeed = autoMoveSpeed;
         else if (!movementLocked)
             horizontalSpeed = moveX * moveSpeed;
 
         Vector3 move = new Vector3(horizontalSpeed, velocity.y, 0f);
         controller.Move(move * Time.fixedDeltaTime);
 
+        // Keep Z position at 0
         Vector3 pos = transform.position;
         pos.z = 0f;
         transform.position = pos;
@@ -137,7 +185,6 @@ public class MovementNEW : MonoBehaviour
         {
             autoMoveActive = false;
             moveX = 0f;
-            airSpeedMultiplier = 1f;
         }
     }
 
@@ -150,6 +197,7 @@ public class MovementNEW : MonoBehaviour
         jumpTrigger = true;
 
         autoMoveActive = true;
+        autoMoveSpeed = moveSpeed * overrideAirSpeed;
         autoMoveDuration = duration;
         autoMoveTimer = duration;
     }
@@ -161,6 +209,83 @@ public class MovementNEW : MonoBehaviour
         jumpTrigger = true;
     }
 
+    // Crouch sequence
+    public void StartCrouchSequence(float speed)
+    {
+        isCrouchWalk = true;
+        isCrouchShock = false;
+
+        movementLocked = true;
+        autoMoveActive = true;
+        autoMoveSpeed = speed;
+        autoMoveDuration = 10000f;
+        autoMoveTimer = autoMoveDuration;
+
+        // Immediately set walking float to 1
+        if (animator != null)
+            animator.SetFloat("isWalking", 1f);
+    }
+
+    public void ResetCrouchWalk()
+    {
+        isCrouchWalk = false;
+        if (animator != null)
+            animator.SetFloat("isWalking", 0f);
+    }
+
+    // Left/right dodge sequence
+    // Left/right dodge sequence
+    public void StartLeftRightSequence(float speed, bool startLeft)
+    {
+        // Reset crouch walk flags
+        isCrouchWalk = false;
+        isCrouchShock = false;
+
+        // Set initial dodge
+        isLeftDodge = startLeft;
+        isRightDodge = !startLeft;
+
+        movementLocked = true;
+        autoMoveActive = true;
+        autoMoveSpeed = speed;
+        autoMoveDuration = 10000f;
+        autoMoveTimer = autoMoveDuration;
+    }
+
+    public void SwapDodge()
+    {
+        // Swap left and right dodge
+        bool temp = isLeftDodge;
+        isLeftDodge = isRightDodge;
+        isRightDodge = temp;
+    }
+
+    public void StopSequence()
+    {
+        if (dodgeCoroutine != null) // not needed now, but keep for safety
+        {
+            StopCoroutine(dodgeCoroutine);
+            dodgeCoroutine = null;
+        }
+
+        isLeftDodge = false;
+        isRightDodge = false;
+        isCrouchWalk = false;
+        isCrouchShock = false;
+
+        isSitting = false;
+        isSitLay = false;
+        isSitStand = false;
+        isSitPaw = false;
+
+        if (animator != null)
+            animator.SetFloat("isWalking", 0f);
+
+        autoMoveActive = false;
+        movementLocked = false;
+    }
+
+    // Existing animation methods (unchanged)
     public void PlayAnimation(AnimationType type, float duration, float postLockDuration = 0f, bool standUpAtEnd = true)
     {
         if (currentAnimationCoroutine != null)
@@ -169,31 +294,16 @@ public class MovementNEW : MonoBehaviour
         switch (type)
         {
             case AnimationType.Sit:
-                isSitLay = false;
-                isSitStand = false;
-                isSitPaw = false;
-                isSitting = true;
+                isSitLay = false; isSitStand = false; isSitPaw = false; isSitting = true;
                 break;
-
             case AnimationType.SitLay:
-                isSitStand = false;
-                isSitPaw = false;
-                isSitting = true;
-                isSitLay = true;
+                isSitStand = false; isSitPaw = false; isSitting = true; isSitLay = true;
                 break;
-
             case AnimationType.SitStand:
-                isSitLay = false;
-                isSitPaw = false;
-                isSitting = true;
-                isSitStand = true;
+                isSitLay = false; isSitPaw = false; isSitting = true; isSitStand = true;
                 break;
-
             case AnimationType.SitPaw:
-                isSitLay = false;
-                isSitStand = false;
-                isSitting = true;
-                isSitPaw = true;
+                isSitLay = false; isSitStand = false; isSitting = true; isSitPaw = true;
                 break;
         }
 
@@ -207,23 +317,14 @@ public class MovementNEW : MonoBehaviour
 
         switch (type)
         {
-            case AnimationType.Sit:
-                break;
-            case AnimationType.SitLay:
-                isSitLay = false;
-                break;
-            case AnimationType.SitStand:
-                isSitStand = false;
-                break;
-            case AnimationType.SitPaw:
-                isSitPaw = false;
-                break;
+            case AnimationType.Sit: break;
+            case AnimationType.SitLay: isSitLay = false; break;
+            case AnimationType.SitStand: isSitStand = false; break;
+            case AnimationType.SitPaw: isSitPaw = false; break;
         }
 
         if (standUpAtEnd)
-        {
             isSitting = false;
-        }
 
         if (postLockDuration > 0)
             yield return new WaitForSeconds(postLockDuration);
