@@ -11,6 +11,12 @@ public class MovementNEW : MonoBehaviour
     public float groundStickForce = -5f;
     public float coyoteTime = 0.15f;
 
+    [Header("Running")]
+    public float runSpeedMultiplier = 2f;      // Max speed multiplier at full run
+    public float runAcceleration = 0.3f;       // How much each space tap increases intensity
+    public float runDecay = 2f;                // Intensity lost per second
+    public float maxRunIntensity = 1f;         // Maximum run intensity (added to walk)
+
     private CharacterController controller;
     public Animator animator;
 
@@ -39,6 +45,7 @@ public class MovementNEW : MonoBehaviour
     private float autoMoveDuration = 0.5f;
 
     private float moveX = 0f;
+    private float runIntensity = 0f;
 
     private Coroutine currentAnimationCoroutine;
     private Coroutine dodgeCoroutine;
@@ -56,6 +63,27 @@ public class MovementNEW : MonoBehaviour
             moveX = 0f;
             if (Input.GetKey(KeyCode.D))
                 moveX = 1f;
+
+            // Running mechanic (only when moving right)
+            if (moveX > 0f)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    runIntensity = Mathf.Min(runIntensity + runAcceleration, maxRunIntensity);
+                }
+                // Decay run intensity over time
+                runIntensity = Mathf.Max(runIntensity - runDecay * Time.deltaTime, 0f);
+            }
+            else
+            {
+                // Not moving right – decay faster
+                runIntensity = Mathf.Max(runIntensity - runDecay * 2f * Time.deltaTime, 0f);
+            }
+        }
+        else
+        {
+            // Locked or auto‑moving – decay run intensity
+            runIntensity = Mathf.Max(runIntensity - runDecay * 2f * Time.deltaTime, 0f);
         }
 
         // Jump trigger from QTE
@@ -78,31 +106,35 @@ public class MovementNEW : MonoBehaviour
             animator.SetBool("LeftDodge", isLeftDodge);
             animator.SetBool("RightDodge", isRightDodge);
 
-            // Determine the target walking float
+            // Determine the target walking float (0 = idle, 1 = walk, 2 = run)
             float targetWalk = 0f;
 
             if (!movementLocked && !autoMoveActive)
             {
-                // Normal movement – walking float follows player input
-                targetWalk = moveX;
+                // Normal movement
+                if (moveX > 0f)
+                {
+                    targetWalk = 1f + runIntensity; // ranges from 1 to 2
+                }
+                else
+                {
+                    targetWalk = 0f;
+                }
             }
             else if (autoMoveActive)
             {
                 // Automatic movement (QTE sequences)
                 if (isCrouchWalk)
                 {
-                    // Crouch walk uses the walking float
-                    targetWalk = 1f;
+                    targetWalk = 1f; // crouch walk uses walk blend
                 }
                 else if (isLeftDodge || isRightDodge)
                 {
-                    // Dodge animations should NOT use walking float
-                    targetWalk = 0f;
+                    targetWalk = 0f; // dodge animations don't use walking float
                 }
                 else
                 {
-                    // Fallback (e.g., jump lunge) – assume walking
-                    targetWalk = 1f;
+                    targetWalk = 1f; // fallback (e.g., jump lunge)
                 }
             }
 
@@ -152,9 +184,14 @@ public class MovementNEW : MonoBehaviour
         // Determine horizontal speed
         float horizontalSpeed = 0f;
         if (autoMoveActive)
+        {
             horizontalSpeed = autoMoveSpeed;
+        }
         else if (!movementLocked)
-            horizontalSpeed = moveX * moveSpeed;
+        {
+            float speedMultiplier = 1f + runIntensity * (runSpeedMultiplier - 1f);
+            horizontalSpeed = moveX * moveSpeed * speedMultiplier;
+        }
 
         Vector3 move = new Vector3(horizontalSpeed, velocity.y, 0f);
         controller.Move(move * Time.fixedDeltaTime);
@@ -185,6 +222,7 @@ public class MovementNEW : MonoBehaviour
         {
             autoMoveActive = false;
             moveX = 0f;
+            runIntensity = 0f;
         }
     }
 
@@ -221,6 +259,8 @@ public class MovementNEW : MonoBehaviour
         autoMoveDuration = 10000f;
         autoMoveTimer = autoMoveDuration;
 
+        runIntensity = 0f;
+
         // Immediately set walking float to 1
         if (animator != null)
             animator.SetFloat("isWalking", 1f);
@@ -234,14 +274,11 @@ public class MovementNEW : MonoBehaviour
     }
 
     // Left/right dodge sequence
-    // Left/right dodge sequence
     public void StartLeftRightSequence(float speed, bool startLeft)
     {
-        // Reset crouch walk flags
         isCrouchWalk = false;
         isCrouchShock = false;
 
-        // Set initial dodge
         isLeftDodge = startLeft;
         isRightDodge = !startLeft;
 
@@ -250,11 +287,12 @@ public class MovementNEW : MonoBehaviour
         autoMoveSpeed = speed;
         autoMoveDuration = 10000f;
         autoMoveTimer = autoMoveDuration;
+
+        runIntensity = 0f;
     }
 
     public void SwapDodge()
     {
-        // Swap left and right dodge
         bool temp = isLeftDodge;
         isLeftDodge = isRightDodge;
         isRightDodge = temp;
@@ -262,7 +300,7 @@ public class MovementNEW : MonoBehaviour
 
     public void StopSequence()
     {
-        if (dodgeCoroutine != null) // not needed now, but keep for safety
+        if (dodgeCoroutine != null)
         {
             StopCoroutine(dodgeCoroutine);
             dodgeCoroutine = null;
@@ -270,8 +308,6 @@ public class MovementNEW : MonoBehaviour
 
         isLeftDodge = false;
         isRightDodge = false;
-        isCrouchWalk = false;
-        isCrouchShock = false;
 
         isSitting = false;
         isSitLay = false;
@@ -281,11 +317,13 @@ public class MovementNEW : MonoBehaviour
         if (animator != null)
             animator.SetFloat("isWalking", 0f);
 
+        runIntensity = 0f;
+
         autoMoveActive = false;
         movementLocked = false;
     }
 
-    // Existing animation methods (unchanged)
+    // Animation methods (unchanged)
     public void PlayAnimation(AnimationType type, float duration, float postLockDuration = 0f, bool standUpAtEnd = true)
     {
         if (currentAnimationCoroutine != null)
