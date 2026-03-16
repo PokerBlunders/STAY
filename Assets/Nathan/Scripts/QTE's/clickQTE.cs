@@ -48,8 +48,6 @@ public class clickQTE : MonoBehaviour
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null) playerMovement = player.GetComponent<MovementNEW>();
         }
-        if (failHandler == null)
-            failHandler = FindObjectOfType<FailHandler>();
     }
 
     void OnTriggerEnter(Collider other)
