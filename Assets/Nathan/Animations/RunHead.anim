@@ -20883,31 +20883,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0.8166819, y: 0, z: 0, w: 0.57708806}
-        inSlope: {x: 0, y: 0, z: 0, w: 0}
-        outSlope: {x: 0, y: -1.41063605e-14, z: -1.1963069e-14, w: 0}
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
-      - serializedVersion: 3
-        time: 0.81666666
-        value: {x: -0.8166819, y: 0, z: 0, w: 0.57708806}
-        inSlope: {x: 0, y: -1.4107152e-14, z: -1.1963332e-14, w: 0}
-        outSlope: {x: 0, y: 0, z: 0, w: 0}
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    path: rig/MCH-torso.parent/torso/MCH-spine.007/spine_fk.007/MCH-spine.006/spine_fk.006/MCH-spine.005/spine_fk.005/MCH-spine.004/spine_fk.004/tweak_spine.004/MCH-ROT-tail/spine.003/spine.002/spine.001/spine/tweak_spine/ORG-spine/DEF-spine
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
         value: {x: 0.27056685, y: 0, z: 0, w: 0.9627012}
         inSlope: {x: 0, y: 0, z: 0, w: 0}
         outSlope: {x: 0.40233135, y: 0.0000035001126, z: -0.000006847011, w: -0.11301041}
@@ -21290,6 +21265,31 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     path: rig/MCH-torso.parent/torso/MCH-spine.008/spine_fk.008/MCH-ROT-neck/neck/MCH-ROT-head
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: {x: -0.62885916, y: 0, z: 0, w: 0.7775192}
+        inSlope: {x: 0, y: 0, z: 0, w: 0}
+        outSlope: {x: 0, y: -1.2487709e-14, z: -1.3817551e-14, w: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+      - serializedVersion: 3
+        time: 0.81666666
+        value: {x: -0.62885916, y: 0, z: 0, w: 0.7775192}
+        inSlope: {x: 0, y: -1.2488078e-14, z: -1.38182465e-14, w: 0}
+        outSlope: {x: 0, y: 0, z: 0, w: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: rig/MCH-torso.parent/torso/MCH-spine.007/spine_fk.007/MCH-spine.006/spine_fk.006/MCH-spine.005/spine_fk.005/MCH-spine.004/spine_fk.004/tweak_spine.004/MCH-ROT-tail/spine.003/spine.002/spine.001/spine/tweak_spine/ORG-spine/DEF-spine
   m_CompressedRotationCurves: []
   m_EulerCurves: []
   m_PositionCurves:
@@ -23542,7 +23542,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0, y: 0.001318, z: 0.000636}
+        value: {x: 0, y: 0.000829, z: 0.000709}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -23551,7 +23551,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.81666666
-        value: {x: 0, y: 0.001318, z: 0.000636}
+        value: {x: 0, y: 0.000829, z: 0.000709}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -48515,15 +48515,6 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2283250152
-      attribute: 2
-      script: {fileID: 0}
-      typeID: 4
-      customType: 0
-      isPPtrCurve: 0
-      isIntCurve: 0
-      isSerializeReferenceCurve: 0
-    - serializedVersion: 2
       path: 337613955
       attribute: 2
       script: {fileID: 0}
@@ -48543,6 +48534,15 @@ AnimationClip:
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 2938951868
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 2283250152
       attribute: 2
       script: {fileID: 0}
       typeID: 4
@@ -146189,7 +146189,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.001318
+        value: 0.000829
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -146198,7 +146198,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.81666666
-        value: 0.001318
+        value: 0.000829
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -146219,7 +146219,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.000636
+        value: 0.000709
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -146228,7 +146228,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.81666666
-        value: 0.000636
+        value: 0.000709
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -212264,126 +212264,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.8166819
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.81666666
-        value: -0.8166819
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalRotation.x
-    path: rig/MCH-torso.parent/torso/MCH-spine.007/spine_fk.007/MCH-spine.006/spine_fk.006/MCH-spine.005/spine_fk.005/MCH-spine.004/spine_fk.004/tweak_spine.004/MCH-ROT-tail/spine.003/spine.002/spine.001/spine/tweak_spine/ORG-spine/DEF-spine
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: -1.41063605e-14
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.81666666
-        value: 0
-        inSlope: -1.4107152e-14
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalRotation.y
-    path: rig/MCH-torso.parent/torso/MCH-spine.007/spine_fk.007/MCH-spine.006/spine_fk.006/MCH-spine.005/spine_fk.005/MCH-spine.004/spine_fk.004/tweak_spine.004/MCH-ROT-tail/spine.003/spine.002/spine.001/spine/tweak_spine/ORG-spine/DEF-spine
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: -1.1963069e-14
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.81666666
-        value: 0
-        inSlope: -1.1963332e-14
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalRotation.z
-    path: rig/MCH-torso.parent/torso/MCH-spine.007/spine_fk.007/MCH-spine.006/spine_fk.006/MCH-spine.005/spine_fk.005/MCH-spine.004/spine_fk.004/tweak_spine.004/MCH-ROT-tail/spine.003/spine.002/spine.001/spine/tweak_spine/ORG-spine/DEF-spine
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0.57708806
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.81666666
-        value: 0.57708806
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalRotation.w
-    path: rig/MCH-torso.parent/torso/MCH-spine.007/spine_fk.007/MCH-spine.006/spine_fk.006/MCH-spine.005/spine_fk.005/MCH-spine.004/spine_fk.004/tweak_spine.004/MCH-ROT-tail/spine.003/spine.002/spine.001/spine/tweak_spine/ORG-spine/DEF-spine
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
         value: 0.27056685
         inSlope: 0
         outSlope: 0.40233135
@@ -214103,6 +213983,126 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_LocalRotation.w
     path: rig/MCH-torso.parent/torso/MCH-spine.008/spine_fk.008/MCH-ROT-neck/neck/MCH-ROT-head
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: -0.62885916
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.81666666
+        value: -0.62885916
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalRotation.x
+    path: rig/MCH-torso.parent/torso/MCH-spine.007/spine_fk.007/MCH-spine.006/spine_fk.006/MCH-spine.005/spine_fk.005/MCH-spine.004/spine_fk.004/tweak_spine.004/MCH-ROT-tail/spine.003/spine.002/spine.001/spine/tweak_spine/ORG-spine/DEF-spine
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: -1.2487709e-14
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.81666666
+        value: 0
+        inSlope: -1.2488078e-14
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalRotation.y
+    path: rig/MCH-torso.parent/torso/MCH-spine.007/spine_fk.007/MCH-spine.006/spine_fk.006/MCH-spine.005/spine_fk.005/MCH-spine.004/spine_fk.004/tweak_spine.004/MCH-ROT-tail/spine.003/spine.002/spine.001/spine/tweak_spine/ORG-spine/DEF-spine
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: -1.3817551e-14
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.81666666
+        value: 0
+        inSlope: -1.38182465e-14
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalRotation.z
+    path: rig/MCH-torso.parent/torso/MCH-spine.007/spine_fk.007/MCH-spine.006/spine_fk.006/MCH-spine.005/spine_fk.005/MCH-spine.004/spine_fk.004/tweak_spine.004/MCH-ROT-tail/spine.003/spine.002/spine.001/spine/tweak_spine/ORG-spine/DEF-spine
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.7775192
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.81666666
+        value: 0.7775192
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalRotation.w
+    path: rig/MCH-torso.parent/torso/MCH-spine.007/spine_fk.007/MCH-spine.006/spine_fk.006/MCH-spine.005/spine_fk.005/MCH-spine.004/spine_fk.004/tweak_spine.004/MCH-ROT-tail/spine.003/spine.002/spine.001/spine/tweak_spine/ORG-spine/DEF-spine
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -219810,7 +219810,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -109.508
+        value: -77.932
         inSlope: 0.0000031363106
         outSlope: 0.0000031363106
         tangentMode: 0
@@ -219819,7 +219819,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.81666666
-        value: -109.508
+        value: -77.932
         inSlope: 0.0000031363106
         outSlope: 0.0000031363106
         tangentMode: 0
