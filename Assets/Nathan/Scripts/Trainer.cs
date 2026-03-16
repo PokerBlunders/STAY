@@ -1,8 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
-public class BackgroundCharacter : MonoBehaviour
+public class Trainer : MonoBehaviour
 {
     [Header("Movement")]
     public Transform waypoint;
@@ -31,7 +30,28 @@ public class BackgroundCharacter : MonoBehaviour
 
     public void SetShock(bool value)
     {
-        if (animator != null) animator.SetBool(shockBool, value);
+        if (animator != null)
+        {
+            animator.SetBool(shockBool, value);
+            // If shock is being set to true, stop movement and reset other states
+            if (value)
+            {
+                StopMoving();
+                SetWalk(false);
+                SetArrive(false);
+            }
+        }
+    }
+
+    // Call this to stop the character from moving immediately
+    private void StopMoving()
+    {
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+            moveCoroutine = null;
+        }
+        isMoving = false;
     }
 
     public void StartWalking()
@@ -59,6 +79,8 @@ public class BackgroundCharacter : MonoBehaviour
 
         while (Vector3.Distance(transform.position, waypoint.position) > stopDistance)
         {
+            // If shock is triggered during movement, the coroutine may still run? We'll check isMoving flag.
+            if (!isMoving) yield break; // Exit if movement stopped (e.g., shock triggered)
             transform.position = Vector3.MoveTowards(transform.position, waypoint.position, moveSpeed * Time.deltaTime);
             yield return null;
         }
@@ -71,18 +93,9 @@ public class BackgroundCharacter : MonoBehaviour
         isMoving = false;
         moveCoroutine = null;
     }
-    /*
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            StartWalking();
-        }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SetShock(true);
-        }
+    public void SetWaypoint(Transform newWaypoint)
+    {
+        waypoint = newWaypoint;
     }
-    */
 }

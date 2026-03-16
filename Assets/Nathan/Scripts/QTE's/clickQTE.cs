@@ -15,13 +15,12 @@ public class clickQTE : MonoBehaviour
     [Header("Settings")]
     public QTEType type = QTEType.Crouch;
     public float timePerStep = 2f;
-    public float[] perStepTimeOverrides;
     public float crouchMoveSpeed = 1f;        // Speed during crouch sequence
     public float leftRightMoveSpeed = 1f;      // Speed during left/right sequence
-    
+
     [Header("Left/Right Dodge Settings")]
-    public float dodgeInterval = 0.5f;      // time between left/right switches
-    public bool startWithLeft = true;       // whether to start with left or right
+    public float dodgeInterval = 0.5f;         // Time between left/right swaps
+    public bool startWithLeft = true;          // Initial dodge direction
 
     [Header("Player")]
     public MovementNEW playerMovement;
@@ -64,21 +63,20 @@ public class clickQTE : MonoBehaviour
         currentIndex = 0;
         sequenceCompleted = false;
 
-        // Start the appropriate animation with the chosen speed
         if (playerMovement != null)
         {
             if (type == QTEType.Crouch)
                 playerMovement.StartCrouchSequence(crouchMoveSpeed);
             else
-                playerMovement.StartLeftRightSequence(leftRightMoveSpeed, true); // true = start left
+                // Pass interval, starting direction, and max swaps = number of buttons
+                playerMovement.StartLeftRightSequence(leftRightMoveSpeed, startWithLeft, dodgeInterval, spawnPositions.Length);
         }
 
-        // Show panel
         if (qtePanel != null)
             qtePanel.SetActive(true);
 
         SpawnButtonAtCurrentPosition();
-        timer = GetCurrentStepTime();
+        timer = timePerStep;
     }
 
     void Update()
@@ -127,11 +125,7 @@ public class clickQTE : MonoBehaviour
 
         currentIndex++;
 
-        // Swap dodge direction for left/right QTE
-        if (type == QTEType.LeftRight && playerMovement != null)
-        {
-            playerMovement.SwapDodge();
-        }
+        // No longer swapping dodge here – now automatic
 
         if (currentIndex >= spawnPositions.Length)
         {
@@ -144,18 +138,9 @@ public class clickQTE : MonoBehaviour
         else
         {
             SpawnButtonAtCurrentPosition();
-            timer = GetCurrentStepTime();
+            timer = timePerStep;
         }
     }
-
-    float GetCurrentStepTime()
-    {
-        if (perStepTimeOverrides != null && currentIndex < perStepTimeOverrides.Length)
-            return perStepTimeOverrides[currentIndex];
-        else
-            return timePerStep;
-    }
-
     void SuccessQTE()
     {
         Debug.Log("Position Sequence QTE SUCCESS!");

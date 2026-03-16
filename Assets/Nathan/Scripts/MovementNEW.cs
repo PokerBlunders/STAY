@@ -274,11 +274,13 @@ public class MovementNEW : MonoBehaviour
     }
 
     // Left/right dodge sequence
-    public void StartLeftRightSequence(float speed, bool startLeft)
+    public void StartLeftRightSequence(float speed, bool startLeft, float interval, int maxSwaps)
     {
+        // Reset crouch flags
         isCrouchWalk = false;
         isCrouchShock = false;
 
+        // Set initial dodge
         isLeftDodge = startLeft;
         isRightDodge = !startLeft;
 
@@ -288,14 +290,26 @@ public class MovementNEW : MonoBehaviour
         autoMoveDuration = 10000f;
         autoMoveTimer = autoMoveDuration;
 
-        runIntensity = 0f;
+        // Start limited‑swap coroutine
+        if (dodgeCoroutine != null) StopCoroutine(dodgeCoroutine);
+        dodgeCoroutine = StartCoroutine(AutoDodgeRoutine(interval, maxSwaps));
     }
 
-    public void SwapDodge()
+    private IEnumerator AutoDodgeRoutine(float interval, int maxSwaps)
     {
-        bool temp = isLeftDodge;
-        isLeftDodge = isRightDodge;
-        isRightDodge = temp;
+        int swaps = 0;
+        while (swaps < maxSwaps - 1) // We start with the first dodge, so we need (maxSwaps-1) swaps
+        {
+            yield return new WaitForSeconds(interval);
+            // Swap left and right
+            bool temp = isLeftDodge;
+            isLeftDodge = isRightDodge;
+            isRightDodge = temp;
+            swaps++;
+        }
+        // After all swaps, just wait indefinitely (or until StopSequence is called)
+        // This keeps the last dodge direction active.
+        yield return new WaitForSeconds(float.MaxValue); // effectively pauses the coroutine
     }
 
     public void StopSequence()

@@ -813,7 +813,12 @@ MonoBehaviour:
   gravity: -9
   groundStickForce: -5
   coyoteTime: 0.15
+  runSpeedMultiplier: 2.5
+  runAcceleration: 1
+  runDecay: 1
+  maxRunIntensity: 1
   animator: {fileID: 6894392681481430962}
+  isCrouchWalk: 0
 --- !u!1 &719849916642524513
 GameObject:
   m_ObjectHideFlags: 0
