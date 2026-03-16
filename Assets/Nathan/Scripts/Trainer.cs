@@ -71,6 +71,7 @@ public class BackgroundCharacter : MonoBehaviour
         isMoving = false;
         moveCoroutine = null;
     }
+    /*
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -83,4 +84,5 @@ public class BackgroundCharacter : MonoBehaviour
             SetShock(true);
         }
     }
+    */
 }
