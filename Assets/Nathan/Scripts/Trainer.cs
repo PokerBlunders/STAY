@@ -58,7 +58,6 @@ public class Trainer : MonoBehaviour
     {
         if (waypoint == null)
         {
-            Debug.LogWarning("No waypoint assigned!");
             return;
         }
         if (isMoving) return;

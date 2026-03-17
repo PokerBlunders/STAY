@@ -143,7 +143,6 @@ public class clickQTE : MonoBehaviour
     }
     void SuccessQTE()
     {
-        Debug.Log("Position Sequence QTE SUCCESS!");
         isActive = false;
 
         if (qtePanel != null)
@@ -164,7 +163,6 @@ public class clickQTE : MonoBehaviour
     void FailQTE()
     {
         if (!isActive) return;
-        Debug.Log("Position Sequence QTE FAILED!");
         isActive = false;
 
         if (failHandler != null)

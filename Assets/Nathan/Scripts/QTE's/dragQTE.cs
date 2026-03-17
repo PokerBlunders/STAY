@@ -28,6 +28,9 @@ public class DragQTE : MonoBehaviour
     public GameObject nextQTE;
     public bool StandUpAtEnd;
 
+    [Header("Events")]
+    public UnityEngine.Events.UnityEvent onSuccess;
+
     private bool isActive = false;
     private float timer = 0f;
     private bool hasSucceeded = false;
@@ -121,6 +124,8 @@ public class DragQTE : MonoBehaviour
         }
         if (qtePanel != null)
             qtePanel.SetActive(false);
+
+        onSuccess?.Invoke();
 
         GetComponent<Collider>().enabled = false;
     }
