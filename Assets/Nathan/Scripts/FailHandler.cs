@@ -29,26 +29,18 @@ public class FailHandler : MonoBehaviour
 
     private IEnumerator FailSequence()
     {
-        // 1. Trigger trainer's shock animation (assumes Trainer has a public method)
-        if (trainer != null)
-            trainer.SetShock(true);   // You'll need to implement this in your Trainer script
+        trainer.SetShock(true);
 
-        // 2. Wait for the trainer's shock to play (or a fixed delay)
         yield return new WaitForSeconds(trainerShockDelay);
 
-        // 3. Now trigger dog's shock animation and particles
-        if (animator != null)
-        {
-            if (playerMovement != null && playerMovement.isCrouchWalk)
-                animator.SetBool("CrouchShock", true);
-            else
-                animator.SetBool("Shock", true);
-        }
+      
+       if (playerMovement.isCrouchWalk)
+            animator.SetBool("CrouchShock", true);
+        else
+            animator.SetBool("Shock", true);
+ 
+        shockParticles.SetActive(true);
 
-        if (shockParticles != null)
-            shockParticles.SetActive(true);
-
-        // 4. Wait for the dog's shock duration, then fade and restart
         yield return new WaitForSeconds(failAnimationDuration);
         FadeController.Instance.FadeToCurrentScene();
     }
