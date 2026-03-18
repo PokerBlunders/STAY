@@ -14,8 +14,8 @@ public class OpenUI : MonoBehaviour
     public GameObject[] GameObjectTabPage;
     public Image[] ImageTab;
 
-    public AudioUI[] SoundIn;
-    public AudioSource[] Audio;
+
+    public Slider sfx;
 
     bool isPaused;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -106,8 +106,8 @@ public class OpenUI : MonoBehaviour
         Application.Quit();
     }
 
-    //public void PlaySound(string name)
-    //{
-    //    SoundIn s  = Array.Find() 
-    //}
+    public void AudioSlider()
+    {
+        AudioManager.Instance.SFXVolume(sfx.value);
+    }
 }

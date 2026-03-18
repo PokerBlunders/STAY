@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
 
     public Sound[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
+    public string test;
     
 
     private void Awake()
@@ -26,7 +27,13 @@ public class AudioManager : MonoBehaviour
     {
         PlayMusic("Theme");
     }
-
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            PlaySFX(test);
+        }
+    }
     public void PlayMusic(string name)
     {
         Sound s = Array.Find(musicSounds, x => x.name == name);
@@ -44,7 +51,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(string name)
     {
-
+       
         Sound s = Array.Find(sfxSounds, x => x.name == name);
 
         if (s == null)
@@ -56,6 +63,7 @@ public class AudioManager : MonoBehaviour
         {
             sfxSource.PlayOneShot(s.clip);
         }
+        
     }
 
     public void SFXVolume(float volume)
