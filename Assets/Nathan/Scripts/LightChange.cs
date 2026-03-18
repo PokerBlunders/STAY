@@ -3,11 +3,11 @@
 public class LightTriggerIndicator : MonoBehaviour
 {
     [Header("Light")]
-    public Light targetLight;               // The light to change (if not assigned, tries to find on this object)
+    public Light targetLight;
 
     [Header("Trigger")]
-    private Collider triggerZone;             // The trigger collider to monitor (if not assigned, tries to find on this object)
-    public string targetTag = "Player";      // Tag of the object that triggers the change
+    private Collider triggerZone;
+    public string targetTag = "Player";
 
     [Header("Colors")]
     public Color insideColor = Color.red;
@@ -15,15 +15,12 @@ public class LightTriggerIndicator : MonoBehaviour
 
     private void Start()
     {
-        // Auto‑assign light if not set
         if (targetLight == null)
             targetLight = GetComponent<Light>();
 
-        // Auto‑assign trigger collider if not set
         if (triggerZone == null)
             triggerZone = GetComponent<Collider>();
 
-        // Set initial color to outside
         SetColor(outsideColor);
     }
 

@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Nathan/Scenes/Level3.unity
     guid: 61b7e0a8485433646818191901e16da1
+  - enabled: 1
+    path: Assets/Nathan/Scenes/Level4.unity
+    guid: 7ac44cd3d09ba904ab55fe4ea63e824d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -33,7 +33,6 @@ public class Trainer : MonoBehaviour
         if (animator != null)
         {
             animator.SetBool(shockBool, value);
-            // If shock is being set to true, stop movement and reset other states
             if (value)
             {
                 StopMoving();
@@ -43,7 +42,6 @@ public class Trainer : MonoBehaviour
         }
     }
 
-    // Call this to stop the character from moving immediately
     private void StopMoving()
     {
         if (moveCoroutine != null)
@@ -78,8 +76,7 @@ public class Trainer : MonoBehaviour
 
         while (Vector3.Distance(transform.position, waypoint.position) > stopDistance)
         {
-            // If shock is triggered during movement, the coroutine may still run? We'll check isMoving flag.
-            if (!isMoving) yield break; // Exit if movement stopped (e.g., shock triggered)
+            if (!isMoving) yield break;
             transform.position = Vector3.MoveTowards(transform.position, waypoint.position, moveSpeed * Time.deltaTime);
             yield return null;
         }

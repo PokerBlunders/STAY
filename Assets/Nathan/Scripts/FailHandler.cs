@@ -5,12 +5,12 @@ using System.Collections;
 public class FailHandler : MonoBehaviour
 {
     public MovementNEW playerMovement;
-    public float failAnimationDuration = 1f;   // Duration of dog's shock animation (after trainer)
-    public Animator animator;                   // Dog's animator
+    public float failAnimationDuration = 1f;
+    public Animator animator;
     public GameObject shockParticles;
 
-    public Trainer trainer;                      // Reference to the trainer character
-    public float trainerShockDelay = 0.5f;       // Time to wait after trainer animation before dog shock
+    public Trainer trainer;
+    public float trainerShockDelay = 0.5f;
 
     private bool isFailing = false;
 
@@ -19,11 +19,9 @@ public class FailHandler : MonoBehaviour
         if (isFailing) return;
         isFailing = true;
 
-        // Lock player movement immediately
         if (playerMovement != null)
             playerMovement.LockMovement(true);
 
-        // Start the coordinated fail sequence
         StartCoroutine(FailSequence());
     }
 

@@ -15,12 +15,12 @@ public class clickQTE : MonoBehaviour
     [Header("Settings")]
     public QTEType type = QTEType.Crouch;
     public float timePerStep = 2f;
-    public float crouchMoveSpeed = 1f;        // Speed during crouch sequence
-    public float leftRightMoveSpeed = 1f;      // Speed during left/right sequence
+    public float crouchMoveSpeed = 1f;
+    public float leftRightMoveSpeed = 1f;
 
     [Header("Left/Right Dodge Settings")]
-    public float dodgeInterval = 0.5f;         // Time between left/right swaps
-    public bool startWithLeft = true;          // Initial dodge direction
+    public float dodgeInterval = 0.5f;
+    public bool startWithLeft = true;
 
     [Header("Player")]
     public MovementNEW playerMovement;
@@ -68,7 +68,6 @@ public class clickQTE : MonoBehaviour
             if (type == QTEType.Crouch)
                 playerMovement.StartCrouchSequence(crouchMoveSpeed);
             else
-                // Pass interval, starting direction, and max swaps = number of buttons
                 playerMovement.StartLeftRightSequence(leftRightMoveSpeed, startWithLeft, dodgeInterval, spawnPositions.Length);
         }
 
@@ -124,8 +123,6 @@ public class clickQTE : MonoBehaviour
         if (!isActive) return;
 
         currentIndex++;
-
-        // No longer swapping dodge here – now automatic
 
         if (currentIndex >= spawnPositions.Length)
         {
