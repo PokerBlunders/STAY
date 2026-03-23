@@ -53,6 +53,8 @@ public class MovementNEW : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+
+        FailCounterManager.Instance.RegisterAnimator(animator);
     }
 
     void Update()

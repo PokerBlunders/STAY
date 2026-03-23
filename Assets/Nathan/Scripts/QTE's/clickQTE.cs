@@ -32,6 +32,7 @@ public class clickQTE : MonoBehaviour
     public FailHandler failHandler;
 
     private GameObject currentButton;
+    private Image currentTimerImage;    // Reference to the timer image on the current button
     private int currentIndex = 0;
     private float timer = 0f;
     private bool isActive = false;
@@ -85,6 +86,10 @@ public class clickQTE : MonoBehaviour
         if (!sequenceCompleted)
         {
             timer -= Time.deltaTime;
+            // Update the timer image of the current button
+            if (currentTimerImage != null)
+                currentTimerImage.fillAmount = timer / timePerStep;
+
             if (timer <= 0f)
             {
                 FailQTE();
@@ -115,6 +120,17 @@ public class clickQTE : MonoBehaviour
                 btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(OnButtonClicked);
             }
+
+            // Find the timer image (assuming it's a child named "TimerImage")
+            Transform timerTransform = currentButton.transform.Find("TimerImage");
+            if (timerTransform != null)
+                currentTimerImage = timerTransform.GetComponent<Image>();
+            else
+                Debug.LogWarning("Button prefab is missing a child named 'TimerImage'");
+
+            // Reset timer fill for this button
+            if (currentTimerImage != null)
+                currentTimerImage.fillAmount = 1f;
         }
     }
 
@@ -135,9 +151,10 @@ public class clickQTE : MonoBehaviour
         else
         {
             SpawnButtonAtCurrentPosition();
-            timer = timePerStep;
+            timer = timePerStep; // Reset timer for the new button
         }
     }
+
     void SuccessQTE()
     {
         isActive = false;
@@ -150,9 +167,7 @@ public class clickQTE : MonoBehaviour
         if (playerMovement != null)
             playerMovement.StopSequence();
         if (type == QTEType.Crouch)
-        {
             playerMovement.ResetCrouchWalk();
-        }
 
         GetComponent<Collider>().enabled = false;
     }

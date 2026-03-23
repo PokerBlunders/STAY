@@ -19,6 +19,8 @@ public class FailHandler : MonoBehaviour
         if (isFailing) return;
         isFailing = true;
 
+        FailCounterManager.Instance.AddFailure();
+
         if (playerMovement != null)
             playerMovement.LockMovement(true);
 

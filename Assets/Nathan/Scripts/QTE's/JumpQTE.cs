@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class jumpQTE : MonoBehaviour
@@ -6,6 +7,7 @@ public class jumpQTE : MonoBehaviour
     [Header("UI")]
     public GameObject qtePanel;
     public RectTransform needle;
+    public Image timerImage;               // <-- NEW: assign a filled Image (e.g., a circular progress ring)
     public float targetAngleMin = 240f;
     public float targetAngleMax = 300f;
 
@@ -57,6 +59,13 @@ public class jumpQTE : MonoBehaviour
         if (qtePanel != null)
             qtePanel.SetActive(true);
         UpdateNeedle();
+
+        // Reset timer visual
+        if (timerImage != null)
+        {
+            timerImage.fillAmount = 1f;
+            timerImage.gameObject.SetActive(true);
+        }
     }
 
     void Update()
@@ -70,6 +79,12 @@ public class jumpQTE : MonoBehaviour
         if (timeOut > 0f)
         {
             timer += Time.deltaTime;
+            // Update timer image
+            if (timerImage != null)
+            {
+                timerImage.fillAmount = 1f - (timer / timeOut);
+            }
+
             if (timer >= timeOut)
             {
                 FailQTE();
@@ -117,6 +132,10 @@ public class jumpQTE : MonoBehaviour
         if (qtePanel != null)
             qtePanel.SetActive(false);
 
+        // Hide timer image
+        if (timerImage != null)
+            timerImage.gameObject.SetActive(false);
+
         GetComponent<Collider>().enabled = false;
     }
 
@@ -126,9 +145,11 @@ public class jumpQTE : MonoBehaviour
 
         if (qtePanel != null)
             qtePanel.SetActive(false);
+        if (timerImage != null)
+            timerImage.gameObject.SetActive(false);
         if (playerMovement != null)
             playerMovement.LockMovement(false);
 
-           failHandler.TriggerFail();
+        failHandler.TriggerFail();
     }
 }

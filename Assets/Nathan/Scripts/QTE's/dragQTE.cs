@@ -9,6 +9,7 @@ public class DragQTE : MonoBehaviour
     [Header("UI")]
     public GameObject qtePanel;
     public Slider dragSlider;
+    public Image timerImage;               // <-- NEW: assign a filled Image (e.g., a progress ring)
 
     [Header("Settings")]
     public float timeLimit = 5f;
@@ -45,6 +46,10 @@ public class DragQTE : MonoBehaviour
             dragSlider.value = 1f;
             dragSlider.interactable = false;
         }
+
+        // Ensure timer image is hidden initially
+        if (timerImage != null)
+            timerImage.gameObject.SetActive(false);
     }
 
     void OnTriggerEnter(Collider other)
@@ -72,6 +77,13 @@ public class DragQTE : MonoBehaviour
             dragSlider.interactable = true;
             dragSlider.onValueChanged.AddListener(OnSliderValueChanged);
         }
+
+        // Reset timer visual
+        if (timerImage != null)
+        {
+            timerImage.fillAmount = 1f;
+            timerImage.gameObject.SetActive(true);
+        }
     }
 
     void Update()
@@ -79,6 +91,13 @@ public class DragQTE : MonoBehaviour
         if (!isActive || hasSucceeded) return;
 
         timer += Time.deltaTime;
+
+        // Update timer image
+        if (timerImage != null)
+        {
+            timerImage.fillAmount = 1f - (timer / timeLimit);
+        }
+
         if (timer >= timeLimit)
         {
             FailQTE();
@@ -125,6 +144,10 @@ public class DragQTE : MonoBehaviour
         if (qtePanel != null)
             qtePanel.SetActive(false);
 
+        // Hide timer image
+        if (timerImage != null)
+            timerImage.gameObject.SetActive(false);
+
         onSuccess?.Invoke();
 
         GetComponent<Collider>().enabled = false;
@@ -149,6 +172,8 @@ public class DragQTE : MonoBehaviour
         }
         if (qtePanel != null)
             qtePanel.SetActive(false);
+        if (timerImage != null)
+            timerImage.gameObject.SetActive(false);
         if (playerMovement != null)
             playerMovement.LockMovement(false);
 
