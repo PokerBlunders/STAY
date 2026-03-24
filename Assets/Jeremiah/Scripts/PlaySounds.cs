@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlaySounds : MonoBehaviour
 {
     public string actionName; // Type "Sit", "Down", "Left", or "Right"
-    public float volume;
+    public float volume = 0.5f;
     
     private void OnTriggerEnter(Collider other)
     {
