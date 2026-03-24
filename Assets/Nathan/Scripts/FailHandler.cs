@@ -44,8 +44,11 @@ public class FailHandler : MonoBehaviour
     {
         trainer.SetShock(true);
 
+
         yield return new WaitForSeconds(trainerShockDelay);
 
+        AudioManager.Instance.PlaySFX("Shock");
+        AudioManager.Instance.PlaySFX("Whimpering");
         // Dog shock
         if (playerMovement != null && playerMovement.isCrouchWalk)
             animator.SetBool("CrouchShock", true);

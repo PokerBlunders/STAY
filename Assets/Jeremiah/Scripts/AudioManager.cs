@@ -7,7 +7,7 @@ public class AudioManager : MonoBehaviour
 
     public Sound[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
-    public string test;
+   
     
 
     private void Awake()
@@ -27,13 +27,7 @@ public class AudioManager : MonoBehaviour
     {
         PlayMusic("Theme");
     }
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            PlaySFX(test);
-        }
-    }
+   
     public void PlayMusic(string name)
     {
         Sound s = Array.Find(musicSounds, x => x.name == name);
