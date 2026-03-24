@@ -133,7 +133,8 @@ public class DragQTE : MonoBehaviour
 
         if (nextQTE != null)
         {
-            StartCoroutine(EnableNextQTEDelayed());
+            // Pass both animation duration and post lock to the coroutine
+            StartCoroutine(EnableNextQTEDelayed(animationDuration, postAnimationLock));
         }
 
         if (dragSlider != null)
@@ -153,9 +154,9 @@ public class DragQTE : MonoBehaviour
         GetComponent<Collider>().enabled = false;
     }
 
-    IEnumerator EnableNextQTEDelayed()
+    IEnumerator EnableNextQTEDelayed(float animDuration, float postLock)
     {
-        float totalDelay = animationDuration;
+        float totalDelay = animDuration + postLock;
         yield return new WaitForSeconds(totalDelay);
         if (nextQTE != null)
             nextQTE.SetActive(true);
