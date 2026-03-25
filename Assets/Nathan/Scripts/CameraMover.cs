@@ -4,19 +4,19 @@ using System.Collections;
 public class CameraMover : MonoBehaviour
 {
     [Header("Target")]
-    public Transform target;          // The object to move to (position and rotation)
-    public Vector3 targetPosition;    // Alternative: use a custom position (if target is null)
+    public Transform target;
+    public Vector3 targetPosition;
 
     [Header("Movement")]
-    public bool useDuration = true;   // If true, moves over a fixed time; if false, uses speed
-    public float duration = 2f;       // Time to complete the movement (if useDuration = true)
-    public float speed = 5f;          // Movement speed (if useDuration = false)
-    public bool movePosition = true;   // Whether to move position
-    public bool moveRotation = true;   // Whether to rotate towards target
+    public bool useDuration = true;
+    public float duration = 2f;
+    public float speed = 5f;
+    public bool movePosition = true;
+    public bool moveRotation = true;
 
     [Header("Start")]
-    public bool startOnAwake = true;   // Start immediately on Awake
-    public float startDelay = 0f;      // Optional delay before starting
+    public bool startOnAwake = true;
+    public float startDelay = 0f;
 
     private Vector3 startPos;
     private Quaternion startRot;
@@ -41,7 +41,6 @@ public class CameraMover : MonoBehaviour
         if (startDelay > 0f)
             yield return new WaitForSeconds(startDelay);
 
-        // Determine target position and rotation
         Vector3 finalPos = target != null ? target.position : targetPosition;
         Quaternion finalRot = target != null ? target.rotation : Quaternion.identity;
 
@@ -52,7 +51,6 @@ public class CameraMover : MonoBehaviour
 
         if (useDuration)
         {
-            // Move over a fixed duration
             while (t < duration)
             {
                 t += Time.deltaTime;
@@ -66,7 +64,6 @@ public class CameraMover : MonoBehaviour
         }
         else
         {
-            // Move at constant speed
             while (Vector3.Distance(transform.position, finalPos) > 0.01f ||
                    (moveRotation && Quaternion.Angle(transform.rotation, finalRot) > 0.1f))
             {
@@ -78,7 +75,6 @@ public class CameraMover : MonoBehaviour
             }
         }
 
-        // Snap to final values to avoid floating point errors
         if (movePosition)
             transform.position = finalPos;
         if (moveRotation)

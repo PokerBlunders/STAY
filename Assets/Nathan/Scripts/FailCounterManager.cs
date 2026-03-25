@@ -6,12 +6,12 @@ public class FailCounterManager : MonoBehaviour
     public static FailCounterManager Instance { get; private set; }
 
     [Header("Animator Controllers")]
-    public RuntimeAnimatorController defaultController;   // Used for 0-2 failures
-    public RuntimeAnimatorController midController;       // Used for 3-5 failures
-    public RuntimeAnimatorController highController;      // Used for 6-9 failures
+    public RuntimeAnimatorController defaultController;
+    public RuntimeAnimatorController midController;
+    public RuntimeAnimatorController highController;
 
     [Header("End Scene")]
-    public string endSceneName = "EndScene";              // Scene to load at 10 failures
+    public string endSceneName = "EndScene";
 
     private int failCount = 0;
     private Animator currentAnimator;
@@ -28,14 +28,12 @@ public class FailCounterManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Call this from any scene to register the player's animator
     public void RegisterAnimator(Animator animator)
     {
         currentAnimator = animator;
         ApplyCurrentController();
     }
 
-    // Call this when a QTE fails
     public void AddFailure()
     {
         failCount++;
@@ -45,10 +43,8 @@ public class FailCounterManager : MonoBehaviour
         {
             LoadEndScene();
         }
-        // No immediate animator update – the change will take effect on next scene load
     }
 
-    // Reset counter (useful for restarting the game)
     public void ResetCounter()
     {
         failCount = 0;
@@ -74,7 +70,6 @@ public class FailCounterManager : MonoBehaviour
 
     private void LoadEndScene()
     {
-        // Optional: use your FadeController if available
         if (FadeController.Instance != null)
             FadeController.Instance.FadeToScene(endSceneName);
         else

@@ -9,7 +9,7 @@ public class DragQTE : MonoBehaviour
     [Header("UI")]
     public GameObject qtePanel;
     public Slider dragSlider;
-    public Image timerImage;               // <-- NEW: assign a filled Image (e.g., a progress ring)
+    public Image timerImage;
 
     [Header("Settings")]
     public float timeLimit = 5f;
@@ -47,7 +47,7 @@ public class DragQTE : MonoBehaviour
             dragSlider.interactable = false;
         }
 
-        // Ensure timer image is hidden initially
+
         if (timerImage != null)
             timerImage.gameObject.SetActive(false);
     }
@@ -78,7 +78,7 @@ public class DragQTE : MonoBehaviour
             dragSlider.onValueChanged.AddListener(OnSliderValueChanged);
         }
 
-        // Reset timer visual
+
         if (timerImage != null)
         {
             timerImage.fillAmount = 1f;
@@ -92,7 +92,7 @@ public class DragQTE : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        // Update timer image
+
         if (timerImage != null)
         {
             timerImage.fillAmount = 1f - (timer / timeLimit);
@@ -133,7 +133,7 @@ public class DragQTE : MonoBehaviour
 
         if (nextQTE != null)
         {
-            // Pass both animation duration and post lock to the coroutine
+
             StartCoroutine(EnableNextQTEDelayed(animationDuration, postAnimationLock));
         }
 
@@ -145,7 +145,7 @@ public class DragQTE : MonoBehaviour
         if (qtePanel != null)
             qtePanel.SetActive(false);
 
-        // Hide timer image
+
         if (timerImage != null)
             timerImage.gameObject.SetActive(false);
 

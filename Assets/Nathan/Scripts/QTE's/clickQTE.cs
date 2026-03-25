@@ -32,7 +32,7 @@ public class clickQTE : MonoBehaviour
     public FailHandler failHandler;
 
     private GameObject currentButton;
-    private Image currentTimerImage;    // Reference to the timer image on the current button
+    private Image currentTimerImage;
     private int currentIndex = 0;
     private float timer = 0f;
     private bool isActive = false;
@@ -86,7 +86,7 @@ public class clickQTE : MonoBehaviour
         if (!sequenceCompleted)
         {
             timer -= Time.deltaTime;
-            // Update the timer image of the current button
+
             if (currentTimerImage != null)
                 currentTimerImage.fillAmount = timer / timePerStep;
 
@@ -121,14 +121,11 @@ public class clickQTE : MonoBehaviour
                 btn.onClick.AddListener(OnButtonClicked);
             }
 
-            // Find the timer image (assuming it's a child named "TimerImage")
             Transform timerTransform = currentButton.transform.Find("TimerImage");
             if (timerTransform != null)
                 currentTimerImage = timerTransform.GetComponent<Image>();
-            else
-                Debug.LogWarning("Button prefab is missing a child named 'TimerImage'");
 
-            // Reset timer fill for this button
+
             if (currentTimerImage != null)
                 currentTimerImage.fillAmount = 1f;
         }
@@ -151,7 +148,7 @@ public class clickQTE : MonoBehaviour
         else
         {
             SpawnButtonAtCurrentPosition();
-            timer = timePerStep; // Reset timer for the new button
+            timer = timePerStep;
         }
     }
 

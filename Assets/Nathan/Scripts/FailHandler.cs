@@ -49,7 +49,7 @@ public class FailHandler : MonoBehaviour
 
         AudioManager.Instance.PlaySFX("Shock");
         AudioManager.Instance.PlaySFX("Whimpering");
-        // Dog shock
+
         if (playerMovement != null && playerMovement.isCrouchWalk)
             animator.SetBool("CrouchShock", true);
         else
@@ -58,7 +58,6 @@ public class FailHandler : MonoBehaviour
         dogshockParticles.SetActive(true);
         screenshockParticles.SetActive(true);
 
-        // Start screen shake
         if (enableScreenShake)
             StartCoroutine(ScreenShake());
 
@@ -76,7 +75,6 @@ public class FailHandler : MonoBehaviour
 
         while (elapsed < shakeDuration)
         {
-            // Random offset
             float x = Random.Range(-shakeMagnitude, shakeMagnitude);
             float y = Random.Range(-shakeMagnitude, shakeMagnitude);
             cam.transform.localPosition = originalPos + new Vector3(x, y, 0);
@@ -85,7 +83,6 @@ public class FailHandler : MonoBehaviour
             yield return null;
         }
 
-        // Reset to original position
         cam.transform.localPosition = originalPos;
     }
 }

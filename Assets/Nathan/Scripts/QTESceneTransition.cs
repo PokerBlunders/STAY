@@ -27,16 +27,9 @@ public class QTESceneTransition : MonoBehaviour
         {
             dragQTE.onSuccess.AddListener(OnQTESuccess);
         }
+      
         else
         {
-            Debug.LogError("QTESceneTransition: No DragQTE component found!");
-        }
-
-        if (transitionImage == null)
-            Debug.LogError("QTESceneTransition: No transition image assigned!");
-        else
-        {
-            // Ensure the image is initially hidden
             transitionImage.fillAmount = 0f;
             transitionImage.gameObject.SetActive(false);
         }
@@ -57,7 +50,6 @@ public class QTESceneTransition : MonoBehaviour
         if (delayBeforeTransition > 0f)
             yield return new WaitForSeconds(delayBeforeTransition);
 
-        // === Fill animation ===
         transitionImage.gameObject.SetActive(true);
         transitionImage.fillAmount = 0f;
 
@@ -70,13 +62,11 @@ public class QTESceneTransition : MonoBehaviour
         }
         transitionImage.fillAmount = 1f;
 
-        // === Load the scene while covered ===
         SceneManager.LoadScene(sceneToLoad);
 
-        // Wait one frame to let the new scene start
         yield return null;
 
-        // === Unfill animation ===
+
         timer = 0f;
         while (timer < transitionDuration)
         {
