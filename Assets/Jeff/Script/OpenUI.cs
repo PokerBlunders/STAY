@@ -13,6 +13,7 @@ public class OpenUI : MonoBehaviour
 
     public GameObject[] GameObjectTabPage;
     public Image[] ImageTab;
+    public bool isStartScene = false;
 
 
     public Slider sfx;
@@ -39,6 +40,7 @@ public class OpenUI : MonoBehaviour
     }
     public void PressedToPlay()
     {
+        if (menu == null) return;
         menu.SetActive(!menu.activeSelf);
         isPaused = !isPaused;
         if (isPaused)
@@ -67,14 +69,19 @@ public class OpenUI : MonoBehaviour
     }
     public void OpenSetting()
     {
-        menu.SetActive(false);
-        setting.SetActive(true);
+        if (menu != null)
+            menu.SetActive(false);
+
+        if (setting != null)
+            setting.SetActive(true);
     }
     public void CloseSetting()
     {
+        if (setting != null)
+            setting.SetActive(false);
 
-         setting.SetActive(false);
-         menu.SetActive(true);
+        if (menu != null)
+            menu.SetActive(true);
 
 
     }
@@ -85,13 +92,23 @@ public class OpenUI : MonoBehaviour
     }
     public void EscStep()
     {
-        if (setting.activeSelf)
+        if (isStartScene)
+        {
+            if (setting != null && setting.activeSelf)
+            {
+                setting.SetActive(false); 
+            }
+            return;
+        }
+
+
+        if (setting != null && setting.activeSelf)
         {
             CloseSetting();
             return;
         }
 
-        if (menu.activeSelf)
+        if (menu != null && menu.activeSelf)
         {
             PressedToPlay();
             return;
