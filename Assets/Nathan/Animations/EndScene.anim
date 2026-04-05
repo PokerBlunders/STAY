@@ -7866,49 +7866,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0.0000001373701, y: 0.0000023032771, z: 0.000000033527616, w: 1}
-        inSlope: {x: 0, y: 0, z: 0, w: 0}
-        outSlope: {x: -0.0000000128110855, y: -0.0000001204512, z: -0.00000010198242, w: 0}
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
-      - serializedVersion: 3
-        time: 4
-        value: {x: 0.0000001373701, y: 0.0000023032771, z: 0.000000033527616, w: 1}
-        inSlope: {x: -0.000000012814638, y: -0.0000001204512, z: -0.00000010199752, w: 0}
-        outSlope: {x: -0.000000012811175, y: -0.00000012044146, z: -0.00000010198637, w: 0}
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
-      - serializedVersion: 3
-        time: 7.983333
-        value: {x: 0.0000001373701, y: 0.0000023032771, z: 0.000000033527616, w: 1}
-        inSlope: {x: -0.000000012814743, y: -0.00000012038439, z: -0.00000010198192, w: 0}
-        outSlope: {x: -0.0000000128121, y: -0.00000012041059, z: -0.00000010198165, w: 0}
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
-      - serializedVersion: 3
-        time: 14.983334
-        value: {x: 0.0000001373701, y: 0.0000023032771, z: 0.000000033527616, w: 1}
-        inSlope: {x: -0.0000000128121, y: -0.00000012041059, z: -0.00000010198165, w: 0}
-        outSlope: {x: 0, y: 0, z: 0, w: 0}
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    path: rig/MCH-torso.parent/torso/MCH-spine.008/spine_fk.008/MCH-pivot/tweak_spine.008/ORG-spine.008/ORG-breast.R/DEF-breast.R
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
         value: {x: 0.7600956, y: -0.14282459, z: 0.07327164, w: 0.62967217}
         inSlope: {x: 0, y: 0, z: 0, w: 0}
         outSlope: {x: 0.008970499, y: 0.00028684735, z: 0.0021811575, w: -0.010997057}
@@ -12324,6 +12281,49 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     path: rig/root/VIS_thigh_ik_pole.R
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: {x: 0.0000001373701, y: 0.0000023032771, z: 0.000000033527616, w: 1}
+        inSlope: {x: 0, y: 0, z: 0, w: 0}
+        outSlope: {x: -0.0000000128110855, y: -0.0000001204512, z: -0.00000010198242, w: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+      - serializedVersion: 3
+        time: 4
+        value: {x: 0.0000001373701, y: 0.0000023032771, z: 0.000000033527616, w: 1}
+        inSlope: {x: -0.000000012814638, y: -0.0000001204512, z: -0.00000010199752, w: 0}
+        outSlope: {x: -0.000000012811175, y: -0.00000012044146, z: -0.00000010198637, w: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+      - serializedVersion: 3
+        time: 7.983333
+        value: {x: 0.0000001373701, y: 0.0000023032771, z: 0.000000033527616, w: 1}
+        inSlope: {x: -0.000000012814743, y: -0.00000012038439, z: -0.00000010198192, w: 0}
+        outSlope: {x: -0.000000012812047, y: -0.00000012041623, z: -0.00000010198195, w: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+      - serializedVersion: 3
+        time: 15
+        value: {x: 0.0000001373701, y: 0.0000023032771, z: 0.000000033527616, w: 1}
+        inSlope: {x: -0.0000000128100215, y: -0.00000012038383, z: -0.00000010198145, w: 0}
+        outSlope: {x: 0, y: 0, z: 0, w: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: rig/MCH-torso.parent/torso/MCH-spine.008/spine_fk.008/MCH-pivot/tweak_spine.008/ORG-spine.008/ORG-breast.R/DEF-breast.R
   m_CompressedRotationCurves: []
   m_EulerCurves: []
   m_PositionCurves:
@@ -20079,16 +20079,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 7.983333
-        value: {x: 0, y: -8.2654876e-11, z: 1.475746e-10}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-      - serializedVersion: 3
-        time: 14.983334
-        value: {x: 0, y: -8.2654876e-11, z: 1.475746e-10}
+        value: {x: -0.000041, y: -0.000243, z: 0.0003}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -20097,7 +20088,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 15
-        value: {x: -0.000041, y: -0.000243, z: -0.000016}
+        value: {x: -0.000041, y: -0.000243, z: 0.0003}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -32579,7 +32570,7 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 14.983334
+        time: 15
         value: {x: 1, y: 1, z: 0.9999999}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
@@ -42586,15 +42577,6 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2020852313
-      attribute: 2
-      script: {fileID: 0}
-      typeID: 4
-      customType: 0
-      isPPtrCurve: 0
-      isIntCurve: 0
-      isSerializeReferenceCurve: 0
-    - serializedVersion: 2
       path: 1620145216
       attribute: 2
       script: {fileID: 0}
@@ -42956,6 +42938,15 @@ AnimationClip:
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
       path: 4104774082
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 2020852313
       attribute: 2
       script: {fileID: 0}
       typeID: 4
@@ -96613,16 +96604,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 7.983333
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 14.983334
-        value: 0
+        value: -0.000041
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -96670,16 +96652,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 7.983333
-        value: -8.2654876e-11
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 14.983334
-        value: -8.2654876e-11
+        value: -0.000243
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -96727,16 +96700,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 7.983333
-        value: 1.475746e-10
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 14.983334
-        value: 1.475746e-10
+        value: 0.0003
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -96745,7 +96709,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 15
-        value: -0.000016
+        value: 0.0003
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -96792,7 +96756,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 14.983334
+        time: 15
         value: 1
         inSlope: 0
         outSlope: 0
@@ -96840,7 +96804,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 14.983334
+        time: 15
         value: 1
         inSlope: 0
         outSlope: 0
@@ -96888,7 +96852,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 14.983334
+        time: 15
         value: 0.9999999
         inSlope: 0
         outSlope: 0
@@ -162877,198 +162841,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.0000001373701
-        inSlope: 0
-        outSlope: -0.0000000128110855
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 4
-        value: 0.0000001373701
-        inSlope: -0.000000012814638
-        outSlope: -0.000000012811175
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 7.983333
-        value: 0.0000001373701
-        inSlope: -0.000000012814743
-        outSlope: -0.0000000128121
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 14.983334
-        value: 0.0000001373701
-        inSlope: -0.0000000128121
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalRotation.x
-    path: rig/MCH-torso.parent/torso/MCH-spine.008/spine_fk.008/MCH-pivot/tweak_spine.008/ORG-spine.008/ORG-breast.R/DEF-breast.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0.0000023032771
-        inSlope: 0
-        outSlope: -0.0000001204512
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 4
-        value: 0.0000023032771
-        inSlope: -0.0000001204512
-        outSlope: -0.00000012044146
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 7.983333
-        value: 0.0000023032771
-        inSlope: -0.00000012038439
-        outSlope: -0.00000012041059
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 14.983334
-        value: 0.0000023032771
-        inSlope: -0.00000012041059
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalRotation.y
-    path: rig/MCH-torso.parent/torso/MCH-spine.008/spine_fk.008/MCH-pivot/tweak_spine.008/ORG-spine.008/ORG-breast.R/DEF-breast.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0.000000033527616
-        inSlope: 0
-        outSlope: -0.00000010198242
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 4
-        value: 0.000000033527616
-        inSlope: -0.00000010199752
-        outSlope: -0.00000010198637
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 7.983333
-        value: 0.000000033527616
-        inSlope: -0.00000010198192
-        outSlope: -0.00000010198165
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 14.983334
-        value: 0.000000033527616
-        inSlope: -0.00000010198165
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalRotation.z
-    path: rig/MCH-torso.parent/torso/MCH-spine.008/spine_fk.008/MCH-pivot/tweak_spine.008/ORG-spine.008/ORG-breast.R/DEF-breast.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 4
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 7.983333
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 14.983334
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalRotation.w
-    path: rig/MCH-torso.parent/torso/MCH-spine.008/spine_fk.008/MCH-pivot/tweak_spine.008/ORG-spine.008/ORG-breast.R/DEF-breast.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
         value: 0.7600956
         inSlope: 0
         outSlope: 0.008970499
@@ -182800,6 +182572,198 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_LocalRotation.w
     path: rig/root/VIS_thigh_ik_pole.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.0000001373701
+        inSlope: 0
+        outSlope: -0.0000000128110855
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4
+        value: 0.0000001373701
+        inSlope: -0.000000012814638
+        outSlope: -0.000000012811175
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 7.983333
+        value: 0.0000001373701
+        inSlope: -0.000000012814743
+        outSlope: -0.000000012812047
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 15
+        value: 0.0000001373701
+        inSlope: -0.0000000128100215
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalRotation.x
+    path: rig/MCH-torso.parent/torso/MCH-spine.008/spine_fk.008/MCH-pivot/tweak_spine.008/ORG-spine.008/ORG-breast.R/DEF-breast.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.0000023032771
+        inSlope: 0
+        outSlope: -0.0000001204512
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4
+        value: 0.0000023032771
+        inSlope: -0.0000001204512
+        outSlope: -0.00000012044146
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 7.983333
+        value: 0.0000023032771
+        inSlope: -0.00000012038439
+        outSlope: -0.00000012041623
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 15
+        value: 0.0000023032771
+        inSlope: -0.00000012038383
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalRotation.y
+    path: rig/MCH-torso.parent/torso/MCH-spine.008/spine_fk.008/MCH-pivot/tweak_spine.008/ORG-spine.008/ORG-breast.R/DEF-breast.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.000000033527616
+        inSlope: 0
+        outSlope: -0.00000010198242
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4
+        value: 0.000000033527616
+        inSlope: -0.00000010199752
+        outSlope: -0.00000010198637
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 7.983333
+        value: 0.000000033527616
+        inSlope: -0.00000010198192
+        outSlope: -0.00000010198195
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 15
+        value: 0.000000033527616
+        inSlope: -0.00000010198145
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalRotation.z
+    path: rig/MCH-torso.parent/torso/MCH-spine.008/spine_fk.008/MCH-pivot/tweak_spine.008/ORG-spine.008/ORG-breast.R/DEF-breast.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 7.983333
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 15
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalRotation.w
+    path: rig/MCH-torso.parent/torso/MCH-spine.008/spine_fk.008/MCH-pivot/tweak_spine.008/ORG-spine.008/ORG-breast.R/DEF-breast.R
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -208846,7 +208810,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 14.983334
+        time: 15
         value: 0.000015741443
         inSlope: -0.0000014725044
         outSlope: -0.0000014725044
@@ -208894,7 +208858,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 14.983334
+        time: 15
         value: 0.0002639361
         inSlope: -0.000013840705
         outSlope: -0.000013840705
@@ -208942,7 +208906,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 14.983334
+        time: 15
         value: 0.0000038420176
         inSlope: -0.000011721409
         outSlope: -0.000011721409
